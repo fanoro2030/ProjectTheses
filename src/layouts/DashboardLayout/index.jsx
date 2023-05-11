@@ -24,6 +24,7 @@ const DashboardLayout = ({ children }) => {
           variant='temporary'
           open={mobileOpen}
           onClose={handleDrawerToggle}
+          anchor='left' // Añadir esta propiedad
         />
       </Hidden>
       <main className={classes.content}>

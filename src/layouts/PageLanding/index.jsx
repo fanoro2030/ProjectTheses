@@ -6,9 +6,7 @@ import useDrawer from '../../hooks/useDrawer';
 import { useStyles } from './page_landing.styles';
 const PageLandingLayout = ({ children }) => {
   const classes = useStyles();
-
   const [mobileOpen, handleDrawerToggle] = useDrawer();
-
   return (
     <div className={classes.root}>
       <CustomAppBar
@@ -26,7 +24,8 @@ const PageLandingLayout = ({ children }) => {
           variant='temporary'
           open={mobileOpen}
           onClose={handleDrawerToggle}
-        />{' '}
+          anchor='right' // Añadir esta propiedad
+        />
       </Hidden>
       <main className={classes.content}>
         <div />

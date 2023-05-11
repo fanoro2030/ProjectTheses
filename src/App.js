@@ -6,8 +6,7 @@ import PageLandingLayout from './layouts/PageLanding';
 function App() {
   return (
     <div>
-      <PageLandingLayout />
-      {/*<DashboardLayout />*/}
+      <DashboardLayout />
     </div>
   );
 }

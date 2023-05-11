@@ -14,7 +14,7 @@ const SidebarNavigation = (props) => {
       classes={{
         paper: classes.drawerPaper,
       }}
-      anchor='left'
+      anchor={props.anchor}
       open={props.open}
       onClose={props.onClose ? props.onClose : null}
     >
