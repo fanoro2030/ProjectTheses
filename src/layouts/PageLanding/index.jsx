@@ -15,13 +15,13 @@ const PageLandingLayout = ({ children }) => {
         position='right'
         handleDrawerToggle={handleDrawerToggle}
       />
-      <Hidden smDown>
+      <Hidden xlDown>
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
         />
       </Hidden>
-      <Hidden mdUp>
+      <Hidden xlUp>
         <SidebarNavigation
           variant='temporary'
           open={mobileOpen}
