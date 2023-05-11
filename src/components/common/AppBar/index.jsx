@@ -18,6 +18,7 @@ const CustomAppBar = ({ position, ...props }) => {
           <IconButton
             color='inherit'
             aria-label='Open drawer'
+            edge='end'
             onClick={() => props.handleDrawerToggle()}
             className={classes.menuButton}
           >

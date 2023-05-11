@@ -17,6 +17,7 @@ const SidebarNavigation = (props) => {
       anchor={props.anchor}
       open={props.open}
       onClose={props.onClose ? props.onClose : null}
+      style={props.style}
     >
       <div className={classes.toolbar} />
       <Divider />

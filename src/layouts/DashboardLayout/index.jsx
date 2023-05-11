@@ -20,6 +20,8 @@ const DashboardLayout = ({ children }) => {
           variant='permanent'
           mobileOpen={false}
           className={classes.sidebar}
+          style={classes.drawer}
+          paper={classes.drawerPaper}
         />
       </Hidden>
       <Hidden mdUp>
@@ -29,8 +31,11 @@ const DashboardLayout = ({ children }) => {
           onClose={handleDrawerToggle}
           anchor='left'
           className={classes.sidebar}
+          style={classes.drawer}
+          paper={classes.drawerPaper}
         />
       </Hidden>
+
       <main className={classes.content}>
         <div />
         {children}
