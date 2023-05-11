@@ -3,9 +3,9 @@ import CustomAppBar from '../../components/common/AppBar';
 import SidebarNavigation from '../../components/common/Sidebar';
 import { Hidden, Box } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
-import { useStyles } from './page_landing.styles';
+import { useStylesPageLayout } from './page_landing.styles';
 const PageLandingLayout = ({ children }) => {
-  const classes = useStyles();
+  const classes = useStylesPageLayout();
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
     <div className={classes.root}>
@@ -17,6 +17,7 @@ const PageLandingLayout = ({ children }) => {
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
+          className={classes.sidebar}
         />
       </Hidden>
       <Hidden xlUp>
