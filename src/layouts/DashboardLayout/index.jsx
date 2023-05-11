@@ -13,15 +13,14 @@ const DashboardLayout = ({ children }) => {
       <CustomAppBar
         position='left'
         handleDrawerToggle={handleDrawerToggle}
-        className={classes.appBar}
+        appBar={classes.appBar}
       />
       <Hidden smDown>
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
-          className={classes.sidebar}
-          style={classes.drawer}
-          paper={classes.drawerPaper}
+         
+          drawerPaper={classes.drawerPaper}
         />
       </Hidden>
       <Hidden mdUp>
@@ -30,9 +29,7 @@ const DashboardLayout = ({ children }) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           anchor='left'
-          className={classes.sidebar}
-          style={classes.drawer}
-          paper={classes.drawerPaper}
+          drawerPaper={classes.drawerPaper}
         />
       </Hidden>
 

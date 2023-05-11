@@ -11,7 +11,7 @@ const CustomAppBar = ({ position, ...props }) => {
   return (
     <AppBar
       position='fixed'
-      className={classes.appBar}
+      className={props.appBar}
     >
       <Toolbar>
         <Hidden smUp>

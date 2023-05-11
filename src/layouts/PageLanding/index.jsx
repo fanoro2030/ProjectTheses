@@ -12,13 +12,13 @@ const PageLandingLayout = ({ children }) => {
       <CustomAppBar
         position='right'
         handleDrawerToggle={handleDrawerToggle}
-        className={classes.appBar}
+        appBar={classes.appBar}
       />
       <Hidden xlDown>
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
-          className={classes.sidebar}
+          drawerPaper={classes.drawerPaper}
         />
       </Hidden>
       <Hidden xlUp>
@@ -27,7 +27,7 @@ const PageLandingLayout = ({ children }) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           anchor='right'
-          className={classes.sidebar}
+          drawerPaper={classes.drawerPaper}
         />
       </Hidden>
       <main className={classes.content}>

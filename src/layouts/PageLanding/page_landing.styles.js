@@ -1,15 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { primaryColor, secondaryColor } from '../../theme/constants/colors';
+import { primaryColor, tertiaryColor } from '../../theme/constants/colors';
 // Estilos para PageLayout
+const drawerWidth = 240;
 export const useStylesPageLayout = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
   appBar: {
-    backgroundColor: secondaryColor,
-  },
-  sidebar: {
     backgroundColor: primaryColor,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: tertiaryColor,
   },
   content: {
     flexGrow: 1,

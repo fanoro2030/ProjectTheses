@@ -9,15 +9,13 @@ const SidebarNavigation = (props) => {
 
   return (
     <Drawer
-      className={classes.drawer}
       variant={props.variant}
       classes={{
-        paper: classes.drawerPaper,
+        paper: props.drawerPaper,
       }}
       anchor={props.anchor}
       open={props.open}
       onClose={props.onClose ? props.onClose : null}
-      style={props.style}
     >
       <div className={classes.toolbar} />
       <Divider />
