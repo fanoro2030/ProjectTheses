@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { Hidden } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useStyles } from './app_bar.styles';
@@ -13,15 +14,16 @@ const CustomAppBar = ({ position, ...props }) => {
       className={classes.appBar}
     >
       <Toolbar>
-        <IconButton
-          color='inherit'
-          aria-label='open drawer'
-          onClick={() => props.handleDrawerToggle()}
-          edge={position === 'left' ? 'start' : 'end'}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Hidden smUp>
+          <IconButton
+            color='inherit'
+            aria-label='Open drawer'
+            onClick={() => props.handleDrawerToggle()}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
       </Toolbar>
     </AppBar>
   );
