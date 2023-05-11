@@ -14,7 +14,7 @@ const CustomAppBar = ({ position, ...props }) => {
       className={props.appBar}
     >
       <Toolbar>
-        <Hidden smUp>
+        <Hidden mdUp>
           <IconButton
             color='inherit'
             aria-label='Open drawer'

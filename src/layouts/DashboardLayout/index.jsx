@@ -19,7 +19,6 @@ const DashboardLayout = ({ children }) => {
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
-         
           drawerPaper={classes.drawerPaper}
         />
       </Hidden>
