@@ -1,13 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  Box,
-  Collapse,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useStyles } from './list_items.styles';
@@ -19,7 +12,7 @@ const ListItems = ({
   onClick,
   parentOpen,
   setParentOpen,
-  handleNonNestedItemClick,
+  onItemClick,
 }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
@@ -33,11 +26,11 @@ const ListItems = ({
         setParentOpen(false);
       }
     } else {
+      onItemClick();
       if (parentOpen && !isOpen) {
         // agregar comprobación para no cerrar el botón padre si ya está cerrado
         setParentOpen(false);
       }
-      handleNonNestedItemClick();
     }
     if (!hasSubRoutes && parentOpen) {
       setParentOpen(false);
@@ -66,8 +59,7 @@ const ListItems = ({
         onClick={handleClick}
         disableGutters
       >
-        <Box
-          component={!hasSubRoutes ? Link : 'div'}
+        <Link
           to={`${item.url}`}
           className={clsx(
             classes.listLink,
@@ -88,7 +80,7 @@ const ListItems = ({
             ) : (
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
-        </Box>
+        </Link>
       </ListItem>{' '}
       {hasSubRoutes && (
         <Collapse
@@ -106,7 +98,7 @@ const ListItems = ({
                 onClick={() => {}}
                 parentOpen={isOpen}
                 setParentOpen={setIsOpen}
-                handleNonNestedItemClick={onClick}
+                onItemClick={onItemClick}
               />
             ))}
           </List>
@@ -115,5 +107,7 @@ const ListItems = ({
     </div>
   );
 };
+
+
 
 export default ListItems;
