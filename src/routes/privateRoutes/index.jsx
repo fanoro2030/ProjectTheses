@@ -1,8 +1,8 @@
 import React from 'react';
-import DashboardLayout from '../layouts/DashboardLayout';
-import { mainNavigation } from '../components/Dashboard/Sidebar/data/navigationData';
-import { mainRoutes } from '../components/Dashboard/Sidebar/data/routesData';
-import RoutesWithLayout from '../components/Dashboard/Sidebar/RoutesWithLayout';
+import DashboardLayout from '../../layouts/DashboardLayout';
+import { mainNavigation } from '../../utils/navigationData';
+import { mainRoutes } from '../../utils/RoutesData';
+import RoutesWithLayout from '../../utils/RoutesWhitLayout';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const PrivateRoutes = () => {
@@ -13,7 +13,7 @@ const PrivateRoutes = () => {
         layout={DashboardLayout}
         routes={mainRoutes}
         LayoutProps={{
-          navigationData: mainNavigation,
+          navigationMain: mainNavigation,
         }}
       />
     </>

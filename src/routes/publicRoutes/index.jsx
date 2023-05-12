@@ -1,8 +1,8 @@
 import React from 'react';
-import PageLayout from '../layouts/PageLayout';
-import { homeNavigation } from '../components/Dashboard/Sidebar/data/navigationData';
-import { homeRoutes } from '../components/Dashboard/Sidebar/data/routesData';
-import RoutesWithLayout from '../components/Dashboard/Sidebar/RoutesWithLayout';
+import PageLandingLayout from '../../layouts/PageLanding';
+import { homeNavigation } from '../../utils/navigationData';
+import { homeRoutes } from '../../utils/RoutesData';
+import RoutesWithLayout from '../../utils/RoutesWhitLayout';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const PublicRoutes = () => {
@@ -10,10 +10,10 @@ const PublicRoutes = () => {
     <>
       <CssBaseline />
       <RoutesWithLayout
-        layout={PageLayout}
+        layout={PageLandingLayout}
         routes={homeRoutes}
         LayoutProps={{
-          navigationData: homeNavigation,
+          navigationHome: homeNavigation,
         }}
       />
     </>

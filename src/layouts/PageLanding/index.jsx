@@ -4,7 +4,7 @@ import SidebarNavigation from '../../components/common/Sidebar';
 import { Hidden, Box } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
 import { useStylesPageLayout } from './page_landing.styles';
-const PageLandingLayout = ({ children }) => {
+const PageLandingLayout = ({ navigationHome, children }) => {
   const classes = useStylesPageLayout();
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
@@ -19,6 +19,7 @@ const PageLandingLayout = ({ children }) => {
           variant='permanent'
           mobileOpen={false}
           drawerPaper={classes.drawerPaper}
+          data={navigationHome}
         />
       </Hidden>
       <Hidden xlUp>
@@ -28,6 +29,7 @@ const PageLandingLayout = ({ children }) => {
           onClose={handleDrawerToggle}
           anchor='right'
           drawerPaper={classes.drawerPaper}
+          data={navigationHome}
         />
       </Hidden>
       <main className={classes.content}>

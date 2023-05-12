@@ -5,7 +5,7 @@ import { Hidden } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
 import { useStylesDashboardLayout } from './dashboard_layout.styles';
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = ({ navigationMain, children }) => {
   const classes = useStylesDashboardLayout();
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
@@ -20,6 +20,7 @@ const DashboardLayout = ({ children }) => {
           variant='permanent'
           mobileOpen={false}
           drawerPaper={classes.drawerPaper}
+          data={navigationMain}
         />
       </Hidden>
       <Hidden mdUp>
@@ -29,6 +30,7 @@ const DashboardLayout = ({ children }) => {
           onClose={handleDrawerToggle}
           anchor='left'
           drawerPaper={classes.drawerPaper}
+          data={navigationMain}
         />
       </Hidden>
 

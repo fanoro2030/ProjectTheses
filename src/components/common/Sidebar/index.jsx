@@ -1,11 +1,22 @@
 import React from 'react';
-import Drawer from '@material-ui/core/Drawer';
 
-import Divider from '@material-ui/core/Divider';
-
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Link,
+  Divider,
+  Drawer,
+} from '@material-ui/core';
+import ListItems from '../Listitems';
 import { useStyles } from './sidebar_navigation.styles';
-const SidebarNavigation = (props) => {
+const SidebarNavigation = ({ data, ...props }) => {
   const classes = useStyles();
+
+  let renderData = data?.map((item, index) => {
+    return <ListItems item={item} />;
+  });
 
   return (
     <Drawer
@@ -19,8 +30,12 @@ const SidebarNavigation = (props) => {
     >
       <div className={classes.toolbar} />
       <Divider />
-
-      <Divider />
+      <List
+        className={classes.list}
+        component='nav'
+      >
+        {renderData}
+      </List>
     </Drawer>
   );
 };
