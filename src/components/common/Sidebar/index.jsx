@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   List,
   ListItem,
@@ -11,25 +10,21 @@ import {
 } from '@material-ui/core';
 import ListItems from '../Listitems';
 import { useStyles } from './sidebar_navigation.styles';
+
 const SidebarNavigation = ({ data, ...props }) => {
   const classes = useStyles();
   const [openIndex, setOpenIndex] = useState(-1);
   const [open, setOpen] = useState(false);
+
   const handleClick = (index) => {
     setOpenIndex((openIndex) => {
       if (openIndex === index) {
-        return -1; // Si se hace clic en el botón padre actualmente abierto, ciérralo
+        return -1;
       } else {
-        // Si se hace clic en un botón padre diferente, ciérralo y abre el nuevo botón padre
-        // Además, cierra cualquier otro botón padre que esté abierto
         data.forEach((item, i) => {
           if (item.subRoutes) {
             if (i === index) {
               setOpen(true);
-              if (openIndex !== -1 && data[openIndex].subRoutes) {
-                setOpenIndex(-1);
-                setOpen(false);
-              }
             } else {
               setOpenIndex(-1);
               setOpen(false);
@@ -43,6 +38,15 @@ const SidebarNavigation = ({ data, ...props }) => {
     });
   };
 
+  const handleNonNestedItemClick = (index) => {
+    if (openIndex === index) {
+      setOpenIndex(-1);
+    } else {
+      setOpenIndex(index);
+      setOpen(true); // Abre el SidebarNavigation cuando se hace clic en un ListItem sin subrutas
+    }
+  };
+
   let renderData = data.map((item, index) => (
     <ListItems
       key={index}
@@ -50,6 +54,7 @@ const SidebarNavigation = ({ data, ...props }) => {
       open={openIndex === index}
       onClick={() => handleClick(index)}
       setParentOpen={setOpen}
+      handleNonNestedItemClick={() => handleNonNestedItemClick(index)}
     />
   ));
 
@@ -60,7 +65,7 @@ const SidebarNavigation = ({ data, ...props }) => {
         paper: props.drawerPaper,
       }}
       anchor={props.anchor}
-      open={props.open}
+      open={open || props.open} // Abre el SidebarNavigation cuando se hace clic en un ListItem sin subrutas
       onClose={props.onClose ? props.onClose : null}
     >
       <div className={classes.toolbar} />

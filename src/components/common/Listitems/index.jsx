@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -19,25 +19,38 @@ const ListItems = ({
   onClick,
   parentOpen,
   setParentOpen,
+  handleNonNestedItemClick,
 }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   const hasSubRoutes = Array.isArray(item.subRoutes);
-
+  const [isOpen, setIsOpen] = React.useState(false);
   const handleClick = () => {
     if (hasSubRoutes) {
-      onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
-      if (!open && parentOpen) {
+      onClick();
+      setIsOpen(!isOpen); // Actualizar el estado local `isOpen` en lugar de pasar la prop `open` del botón padre
+      if (!isOpen && parentOpen) {
         setParentOpen(false);
       }
     } else {
-      if (parentOpen) {
+      if (parentOpen && !isOpen) {
+        // agregar comprobación para no cerrar el botón padre si ya está cerrado
         setParentOpen(false);
       }
+      handleNonNestedItemClick();
+    }
+    if (!hasSubRoutes && parentOpen) {
+      setParentOpen(false);
     }
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
+
+  React.useEffect(() => {
+    if (open === false) {
+      setIsOpen(false);
+    }
+  }, [open]);
 
   return (
     <div
@@ -70,7 +83,7 @@ const ListItems = ({
             {item.name}
           </ListItemText>
           {hasSubRoutes &&
-            (open ? (
+            (isOpen ? (
               <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
@@ -79,7 +92,7 @@ const ListItems = ({
       </ListItem>{' '}
       {hasSubRoutes && (
         <Collapse
-          in={open}
+          in={isOpen}
           timeout='auto'
           unmountOnExit
         >
@@ -88,13 +101,12 @@ const ListItems = ({
               <ListItems
                 key={i}
                 item={nestedItem}
-                open={open}
+                open={isOpen}
                 collapsed={collapsed}
-                onClick={() => {
-                  onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
-                }}
-                parentOpen={open}
-                setParentOpen={setParentOpen}
+                onClick={() => {}}
+                parentOpen={isOpen}
+                setParentOpen={setIsOpen}
+                handleNonNestedItemClick={onClick}
               />
             ))}
           </List>
