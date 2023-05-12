@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -12,92 +12,35 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({ item, collapsed, onClose }) => {
+const ListItems = ({ item, open, collapsed, onClick }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
+  const hasSubRoutes = Array.isArray(item.subRoutes);
 
-  const [open, setOpen] = React.useState(() => {
-    return item.selected ? { [item.url]: true } : {};
-  });
-
-  const [selected, setSelected] = React.useState(item.selected ? item.url : '');
-  const [selectedNested, setSelectedNested] = React.useState('');
-  const [activeButton, setActiveButton] = React.useState(null);
-  const [nestedOpen, setNestedOpen] = React.useState({});
-  const nested = typeof item.subRoutes === 'object';
-  const handleNestedClick = (url) => {
-    const newNestedOpen = updateNestedOpen(url);
-    setSelectedNested(newNestedOpen[url] ? url : '');
-    setNestedOpen(newNestedOpen);
+  const handleClick = () => {
+    if (hasSubRoutes) {
+      onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
+    }
   };
 
-  const updateNestedOpen = (url, isOpen) => {
-    const newNestedOpen = { ...nestedOpen };
-    Object.keys(nestedOpen).forEach((key) => {
-      if (nestedOpen[key] && key !== url && key !== selectedNested) {
-        newNestedOpen[key] = false;
-      }
-    });
-    newNestedOpen[url] = isOpen;
-    return newNestedOpen;
-  };
-
-  const handleClick = (url) => {
-    setActiveButton(item.url);
-
-    const newOpen = { ...open };
-    const isOpen = newOpen[url];
-
-    if (nested) {
-      // Cierra todos los botones anidados abiertos excepto el que se está haciendo clic
-      setNestedOpen(updateNestedOpen(url, !isOpen));
-      setSelectedNested(isOpen ? '' : url);
-    } else {
-      // Cierra todos los botones anidados abiertos
-      setNestedOpen(updateNestedOpen(item.url, false));
-    }
-
-    // Actualiza el estado del botón principal
-    newOpen[url] = !isOpen;
-
-    setOpen(newOpen);
-    setSelected(url);
-    onClose && onClose();
-  };
-
-  React.useEffect(() => {
-    const isSelected = pathname.search(new RegExp(item.url, 'g')) !== -1;
-    if (item.selected !== isSelected) {
-      item.selected = isSelected;
-      setOpen(isSelected ? { [item.url]: true } : {});
-    }
-    if (nested) {
-      const selectedNestedItem = item.subRoutes.find((subItem) =>
-        pathname.includes(subItem.url)
-      );
-      if (selectedNestedItem) {
-        setSelectedNested(selectedNestedItem.url);
-        setNestedOpen({ [item.url]: true, [selectedNestedItem.url]: true });
-      }
-    }
-  }, [pathname, item, item.url, item.selected, nested]);
+  const isSelected = !hasSubRoutes && pathname === item.url;
 
   return (
     <div
       className={clsx(
         classes.root,
-        nested && open[item.url] && classes.expanded,
-        !nested && item.selected && classes.selected
+        hasSubRoutes && open && classes.expanded,
+        isSelected && classes.selected
       )}
     >
       <ListItem
         button
         className={clsx(classes.listItem)}
-        onClick={() => handleClick(item.url)}
+        onClick={handleClick}
         disableGutters
       >
         <Box
-          component={!nested ? Link : 'div'}
+          component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
           className={clsx(
             classes.listLink,
@@ -105,34 +48,37 @@ const ListItems = ({ item, collapsed, onClose }) => {
           )}
         >
           <ListItemIcon className={classes.listIcon}>
-            {item.icon && <item.icon />}
+            {(item.icon && <item.icon />) || ''}
           </ListItemIcon>
           <ListItemText
             classes={{ primary: collapsed ? classes.listItemText : '' }}
           >
             {item.name}
           </ListItemText>
-          {nested &&
-            (open[item.url] ? (
+          {hasSubRoutes &&
+            (open ? (
               <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
         </Box>
-      </ListItem>
-
-      {nested && (
+      </ListItem>{' '}
+      {hasSubRoutes && (
         <Collapse
-          in={open[item.url]}
+          in={open}
           timeout='auto'
           unmountOnExit
         >
           <List disablePadding>
-            {item.subRoutes.map((subItem, i) => (
+            {item.subRoutes.map((nestedItem, i) => (
               <ListItems
                 key={i}
-                item={subItem}
-                onClick={() => handleNestedClick(subItem.url)}
+                item={nestedItem}
+                open={open}
+                collapsed={collapsed}
+                onClick={() => {
+                  onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
+                }}
               />
             ))}
           </List>

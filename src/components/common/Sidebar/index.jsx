@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   List,
@@ -13,10 +13,26 @@ import ListItems from '../Listitems';
 import { useStyles } from './sidebar_navigation.styles';
 const SidebarNavigation = ({ data, ...props }) => {
   const classes = useStyles();
+  const [openIndex, setOpenIndex] = useState(-1);
 
-  let renderData = data?.map((item, index) => {
-    return <ListItems item={item} />;
-  });
+  const handleClick = (index) => {
+    setOpenIndex((openIndex) => {
+      if (openIndex === index) {
+        return -1; // Si se hace clic en el botón padre actualmente abierto, ciérralo
+      } else {
+        return index; // Si se hace clic en un botón padre diferente, ciérralo y abre el nuevo botón padre
+      }
+    });
+  };
+
+  let renderData = data.map((item, index) => (
+    <ListItems
+      key={index}
+      item={item}
+      open={openIndex === index}
+      onClick={() => handleClick(index)}
+    />
+  ));
 
   return (
     <Drawer
