@@ -16,14 +16,31 @@ const ListItems = ({ item, collapsed, onClose }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(
-    item.selected ? { [item.url]: true } : {}
-  );
+  const [open, setOpen] = React.useState(() => {
+    return item.selected ? { [item.url]: true } : {};
+  });
+
   const [selected, setSelected] = React.useState(item.selected ? item.url : '');
   const [selectedNested, setSelectedNested] = React.useState('');
   const [activeButton, setActiveButton] = React.useState(null);
   const [nestedOpen, setNestedOpen] = React.useState({});
   const nested = typeof item.subRoutes === 'object';
+  const handleNestedClick = (url) => {
+    const newNestedOpen = updateNestedOpen(url);
+    setSelectedNested(newNestedOpen[url] ? url : '');
+    setNestedOpen(newNestedOpen);
+  };
+
+  const updateNestedOpen = (url, isOpen) => {
+    const newNestedOpen = { ...nestedOpen };
+    Object.keys(nestedOpen).forEach((key) => {
+      if (nestedOpen[key] && key !== url && key !== selectedNested) {
+        newNestedOpen[key] = false;
+      }
+    });
+    newNestedOpen[url] = isOpen;
+    return newNestedOpen;
+  };
 
   const handleClick = (url) => {
     setActiveButton(item.url);
@@ -32,50 +49,16 @@ const ListItems = ({ item, collapsed, onClose }) => {
     const isOpen = newOpen[url];
 
     if (nested) {
-      // Si el botón actual es anidado, cierra todos los botones anidados abiertos excepto el que se está haciendo clic
-      Object.keys(nestedOpen).forEach((key) => {
-        if (nestedOpen[key] && key !== url && key !== selectedNested) {
-          newOpen[key] = false;
-          setNestedOpen({
-            ...nestedOpen,
-            [key]: false,
-          });
-        }
-      });
-      // Actualiza el estado del botón anidado actual
-      newOpen[url] = !isOpen;
+      // Cierra todos los botones anidados abiertos excepto el que se está haciendo clic
+      setNestedOpen(updateNestedOpen(url, !isOpen));
       setSelectedNested(isOpen ? '' : url);
-      setNestedOpen({
-        ...nestedOpen,
-        [url]: !isOpen,
-      });
     } else {
-      // Si el botón actual no es anidado, cierra todos los botones anidados abiertos
-      Object.keys(nestedOpen).forEach((key) => {
-        if (nestedOpen[key] && key !== item.url && key !== url) {
-          newOpen[key] = false;
-          setNestedOpen({
-            ...nestedOpen,
-            [key]: false,
-          });
-        }
-      });
-      // Actualiza el estado del botón principal
-      newOpen[url] = !isOpen;
-
-      // Si el botón actual es un botón de nivel superior, cierra todos los botones anidados abiertos
-      if (!isOpen) {
-        Object.keys(open).forEach((key) => {
-          if (nestedOpen[key]) {
-            newOpen[key] = false;
-            setNestedOpen({
-              ...nestedOpen,
-              [key]: false,
-            });
-          }
-        });
-      }
+      // Cierra todos los botones anidados abiertos
+      setNestedOpen(updateNestedOpen(item.url, false));
     }
+
+    // Actualiza el estado del botón principal
+    newOpen[url] = !isOpen;
 
     setOpen(newOpen);
     setSelected(url);
@@ -88,7 +71,16 @@ const ListItems = ({ item, collapsed, onClose }) => {
       item.selected = isSelected;
       setOpen(isSelected ? { [item.url]: true } : {});
     }
-  }, [pathname, item, item.url, item.selected]);
+    if (nested) {
+      const selectedNestedItem = item.subRoutes.find((subItem) =>
+        pathname.includes(subItem.url)
+      );
+      if (selectedNestedItem) {
+        setSelectedNested(selectedNestedItem.url);
+        setNestedOpen({ [item.url]: true, [selectedNestedItem.url]: true });
+      }
+    }
+  }, [pathname, item, item.url, item.selected, nested]);
 
   return (
     <div
@@ -136,21 +128,13 @@ const ListItems = ({ item, collapsed, onClose }) => {
           unmountOnExit
         >
           <List disablePadding>
-            {item.subRoutes.map((nestedItem, i) => {
-              return (
-                <ListItems
-                  key={i}
-                  item={nestedItem}
-                  onClick={() => {
-                    handleClick(item.url);
-                    setNestedOpen({
-                      ...nestedOpen,
-                      [item.url]: false,
-                    });
-                  }}
-                />
-              );
-            })}
+            {item.subRoutes.map((subItem, i) => (
+              <ListItems
+                key={i}
+                item={subItem}
+                onClick={() => handleNestedClick(subItem.url)}
+              />
+            ))}
           </List>
         </Collapse>
       )}
