@@ -12,7 +12,14 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({ item, open, collapsed, onClick }) => {
+const ListItems = ({
+  item,
+  open,
+  collapsed,
+  onClick,
+  parentOpen,
+  setParentOpen,
+}) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   const hasSubRoutes = Array.isArray(item.subRoutes);
@@ -20,6 +27,13 @@ const ListItems = ({ item, open, collapsed, onClick }) => {
   const handleClick = () => {
     if (hasSubRoutes) {
       onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
+      if (!open && parentOpen) {
+        setParentOpen(false);
+      }
+    } else {
+      if (parentOpen) {
+        setParentOpen(false);
+      }
     }
   };
 
@@ -79,6 +93,8 @@ const ListItems = ({ item, open, collapsed, onClick }) => {
                 onClick={() => {
                   onClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
                 }}
+                parentOpen={open}
+                setParentOpen={setParentOpen}
               />
             ))}
           </List>

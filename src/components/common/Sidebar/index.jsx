@@ -14,13 +14,31 @@ import { useStyles } from './sidebar_navigation.styles';
 const SidebarNavigation = ({ data, ...props }) => {
   const classes = useStyles();
   const [openIndex, setOpenIndex] = useState(-1);
-
+  const [open, setOpen] = useState(false);
   const handleClick = (index) => {
     setOpenIndex((openIndex) => {
       if (openIndex === index) {
         return -1; // Si se hace clic en el botón padre actualmente abierto, ciérralo
       } else {
-        return index; // Si se hace clic en un botón padre diferente, ciérralo y abre el nuevo botón padre
+        // Si se hace clic en un botón padre diferente, ciérralo y abre el nuevo botón padre
+        // Además, cierra cualquier otro botón padre que esté abierto
+        data.forEach((item, i) => {
+          if (item.subRoutes) {
+            if (i === index) {
+              setOpen(true);
+              if (openIndex !== -1 && data[openIndex].subRoutes) {
+                setOpenIndex(-1);
+                setOpen(false);
+              }
+            } else {
+              setOpenIndex(-1);
+              setOpen(false);
+            }
+          } else if (openIndex === i) {
+            setOpen(false);
+          }
+        });
+        return index;
       }
     });
   };
@@ -31,6 +49,7 @@ const SidebarNavigation = ({ data, ...props }) => {
       item={item}
       open={openIndex === index}
       onClick={() => handleClick(index)}
+      setParentOpen={setOpen}
     />
   ));
 
