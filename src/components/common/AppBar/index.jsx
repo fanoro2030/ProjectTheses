@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  Typography,
-  Hidden,
-} from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
 
 const CustomAppBar = ({ data, position, ...props }) => {
-  const history = useHistory();
-
-  const handleMenuClick = (url) => {
-    history.push(url);
-  };
-
   const classes = useStyles({ position });
 
   const [openIndex, setOpenIndex] = useState(-1);
@@ -56,7 +42,9 @@ const CustomAppBar = ({ data, position, ...props }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <div className={classes.horizontalList}>{renderData}</div>
+        <Hidden smDown>
+          <Grid className={classes.horizontalList}>{renderData}</Grid>
+        </Hidden>
       </Toolbar>
     </AppBar>
   );
