@@ -12,7 +12,7 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
   const handleItemClick = (index) => {
     setOpenIndex(index);
   };
-  
+
   let renderData = data?.map((item, index) => {
     return (
       <ListItems
@@ -24,7 +24,7 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
       />
     );
   });
-  
+
   return (
     <Drawer
       variant={props.variant}

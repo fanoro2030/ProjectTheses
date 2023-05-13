@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
   Collapse,
@@ -7,10 +7,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import clsx from "clsx";
-import { useStyles } from "./list_items.styles";
+} from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import clsx from 'clsx';
+import { useStyles } from './list_items.styles';
 
 const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
   const { pathname } = useLocation();
@@ -24,8 +24,7 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
     }
     onItemClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
   };
-  
-  
+
   const isSelected = !hasSubRoutes && pathname === item.url;
 
   return (
@@ -43,7 +42,7 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
         disableGutters
       >
         <Box
-          component={!hasSubRoutes ? Link : "div"}
+          component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
           className={clsx(
             classes.listLink,
@@ -51,34 +50,37 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
           )}
         >
           <ListItemIcon className={classes.listIcon}>
-            {(item.icon && <item.icon />) || ""}
+            {(item.icon && <item.icon />) || ''}
           </ListItemIcon>
           <ListItemText
-            classes={{ primary: collapsed ? classes.listItemText : "" }}
+            classes={{ primary: collapsed ? classes.listItemText : '' }}
           >
             {item.name}
           </ListItemText>
           {hasSubRoutes &&
             (open ? (
-              <ExpandLess fontSize={collapsed ? "inherit" : "default"} />
+              <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (
-              <ExpandMore fontSize={collapsed ? "inherit" : "default"} />
+              <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
         </Box>
-      </ListItem>{" "}
+      </ListItem>{' '}
       {hasSubRoutes && (
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse
+          in={open}
+          timeout='auto'
+          unmountOnExit
+        >
           <List disablePadding>
             {item.subRoutes.map((nestedItem, i) => (
-             <ListItems
-             key={i}
-             item={nestedItem}
-             open={open}
-             collapsed={collapsed}
-             setOpen={setOpen}
-             onItemClick={onItemClick}
-           />
-           
+              <ListItems
+                key={i}
+                item={nestedItem}
+                open={open}
+                collapsed={collapsed}
+                setOpen={setOpen}
+                onItemClick={onItemClick}
+              />
             ))}
           </List>
         </Collapse>

@@ -1,13 +1,20 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Hidden } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { useLocation } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Typography,
+  Hidden,
+} from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
+import { homeNavigation } from '../../../utils/navigationData';
 const CustomAppBar = ({ position, ...props }) => {
+  const location = useLocation();
+  const publicRoutes = homeNavigation.filter((route) => route.public);
   const classes = useStyles({ position });
-
   return (
     <AppBar
       position='fixed'
@@ -25,6 +32,20 @@ const CustomAppBar = ({ position, ...props }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
+        {publicRoutes.map((route) => (
+          <Button
+            key={route.name}
+            color='inherit'
+            component={Typography}
+            variant='h6'
+            onClick={() => console.log(route.url)}
+            style={{
+              display: location.pathname === route.url ? 'none' : 'block',
+            }}
+          >
+            {route.name}
+          </Button>
+        ))}
       </Toolbar>
     </AppBar>
   );
