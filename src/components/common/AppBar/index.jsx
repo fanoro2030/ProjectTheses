@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -12,8 +12,11 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import { homeNavigation } from '../../../utils/navigationData';
 const CustomAppBar = ({ position, ...props }) => {
-  const location = useLocation();
-  const publicRoutes = homeNavigation.filter((route) => route.public);
+  const history = useHistory();
+
+  const handleMenuClick = (url) => {
+    history.push(url);
+  };
   const classes = useStyles({ position });
   return (
     <AppBar
@@ -32,20 +35,22 @@ const CustomAppBar = ({ position, ...props }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        {publicRoutes.map((route) => (
-          <Button
-            key={route.name}
-            color='inherit'
-            component={Typography}
-            variant='h6'
-            onClick={() => console.log(route.url)}
-            style={{
-              display: location.pathname === route.url ? 'none' : 'block',
-            }}
-          >
-            {route.name}
-          </Button>
-        ))}
+
+        <div>
+          {homeNavigation.map((navItem, index) => {
+            return (
+              <Button
+                key={index}
+                color='inherit'
+                component={Typography}
+                variant='h6'
+                onClick={() => handleMenuClick(navItem.url)}
+              >
+                {navItem.name}
+              </Button>
+            );
+          })}
+        </div>
       </Toolbar>
     </AppBar>
   );
