@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme, item) => ({
   appBar: ({ position }) => ({
     position: 'fixed',
     [theme.breakpoints.up('md')]: {
@@ -37,9 +37,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   horizontalList: {
     display: 'flex',
-    padding: 0,
-    backgroundColor: theme.palette.background.transparent,
-    border: `1px solid red`,
+
+    flexDirection: 'row',
+
     alignItems: 'center',
   },
 }));
