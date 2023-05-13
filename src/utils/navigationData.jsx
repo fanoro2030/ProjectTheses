@@ -12,24 +12,29 @@ export const homeNavigation = [
     name: 'Presentación',
     icon: HomeIcon,
     url: '/presentation',
+    isPublic: true,
   },
   {
     name: 'Sobre Nosotros',
     icon: InfoIcon,
     url: '/sobre-nosotros',
+    isPublic: true,
   },
   {
     name: 'Nuestras Semillas',
     icon: LocalFloristIcon,
     url: '/nuestras-semillas',
+    isPublic: true,
     subRoutes: [
       {
         name: 'Catálogo',
         url: '/catalogo',
+        isPublic: true,
       },
       {
         name: 'Solagro Semillas',
         url: '/solagro-semillas',
+        isPublic: true,
       },
     ],
   },
@@ -37,14 +42,17 @@ export const homeNavigation = [
     name: 'Nuestros Servicios',
     icon: BuildIcon,
     url: '/nuestros-servicios',
+    isPublic: true,
     subRoutes: [
       {
         name: 'Asesoramiento',
         url: '/asesoramiento',
+        isPublic: true,
       },
       {
         name: 'Limpieza y Selección',
         url: '/limpieza-y-seleccion',
+        isPublic: true,
       },
     ],
   },
@@ -52,11 +60,13 @@ export const homeNavigation = [
     name: 'Contacto',
     icon: ContactMailIcon,
     url: '/contacto',
+    isPublic: true,
   },
   {
     name: 'Login',
     icon: LockOpenIcon,
     url: '/login',
+    isPublic: true,
   },
 ];
 

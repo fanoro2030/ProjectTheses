@@ -11,13 +11,16 @@ import {
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import { homeNavigation } from '../../../utils/navigationData';
-const CustomAppBar = ({ position, ...props }) => {
+
+const CustomAppBar = ({ position, isPublic, ...props }) => {
   const history = useHistory();
 
   const handleMenuClick = (url) => {
     history.push(url);
   };
+
   const classes = useStyles({ position });
+
   return (
     <AppBar
       position='fixed'
@@ -35,22 +38,25 @@ const CustomAppBar = ({ position, ...props }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-
-        <div>
-          {homeNavigation.map((navItem, index) => {
-            return (
-              <Button
-                key={index}
-                color='inherit'
-                component={Typography}
-                variant='h6'
-                onClick={() => handleMenuClick(navItem.url)}
-              >
-                {navItem.name}
-              </Button>
-            );
-          })}
-        </div>
+        <Hidden smDown>
+          {isPublic && (
+            <div>
+              {homeNavigation.map((navItem, index) => {
+                return (
+                  <Button
+                    key={index}
+                    color='inherit'
+                    component={Typography}
+                    variant='h6'
+                    onClick={() => handleMenuClick(navItem.url)}
+                  >
+                    {navItem.name}
+                  </Button>
+                );
+              })}
+            </div>
+          )}
+        </Hidden>
       </Toolbar>
     </AppBar>
   );
