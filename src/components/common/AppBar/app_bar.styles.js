@@ -37,9 +37,15 @@ export const useStyles = makeStyles((theme, item) => ({
   },
   horizontalList: {
     display: 'flex',
-
-    flexDirection: 'row',
-
+    alignItems: 'center',
+    justifyContent: 'center', // agrega este estilo para centrar horizontalmente
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-end',
+    },
+  },
+  customList: {
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 }));

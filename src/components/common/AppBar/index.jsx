@@ -44,7 +44,9 @@ const CustomAppBar = ({ data, position, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Grid className={classes.horizontalList}>{renderData}</Grid>
+          <Grid className={`${classes.horizontalList} ${classes.customList}`}>
+            {renderData}
+          </Grid>
         </Hidden>
       </Toolbar>
     </AppBar>
