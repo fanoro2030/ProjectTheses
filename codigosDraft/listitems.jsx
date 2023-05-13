@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
   Collapse,
@@ -12,31 +12,17 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) => {
+const ListItems = ({ item, collapsed }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   //hook/////////////////////////
   const [open, setOpen] = React.useState(false);
-  const hasSubRoutes = Array.isArray(item.subRoutes);
+  const nested = typeof item.navigationData == 'object' ? true : false;
 
   const handleClick = () => {
-    if (item.subRoutes) {
-      setOpen(!open);
-      if (collapsed && open) {
-        setParentOpen(false);
-      }
-    } else {
-      onItemClick();
-    }
+    setOpen(!open);
   };
 
-  const handleParentOpen = () => {
-    if (!open && parentOpen) {
-      setParentOpen(false);
-    } else if (!parentOpen) {
-      setParentOpen(true);
-    }
-  }
   React.useEffect(() => {
     if (pathname.search(new RegExp(item.url, 'g')) !== -1) {
       setOpen(true);
@@ -47,9 +33,9 @@ const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) 
     <div
       className={clsx(
         classes.root,
-        hasSubRoutes && open && classes.expanded,
+        nested && open && classes.expanded,
         pathname.search(new RegExp(item.url, 'g')) !== -1 &&
-          !hasSubRoutes &&
+          !nested &&
           classes.selected
       )}
     >
@@ -60,7 +46,7 @@ const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) 
         disableGutters
       >
         <Box
-          component={!hasSubRoutes ? Link : 'div'}
+          component={!nested ? Link : 'div'}
           to={`${item.url}`}
           className={clsx(
             classes.listLink,
@@ -75,7 +61,7 @@ const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) 
           >
             {item.name}
           </ListItemText>
-          {hasSubRoutes &&
+          {nested &&
             (open ? (
               <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (
@@ -84,19 +70,12 @@ const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) 
         </Box>
       </ListItem>
 
-      {hasSubRoutes&& (
+      {nested && (
         <Collapse in={open} timeout='auto' unmountOnExit>
           <List disablePadding>
-            {item.subRoutes.map((nestedItem, i) => {
+            {item.navigationData.map((nestedItem, i) => {
               return (
-                <ListItems key={i} 
-                item={nestedItem}
-                 collapsed={collapsed}
-                 open={open}
-                onItemClick={onItemClick}
-                  onClick={handleParentOpen}
-                parentOpen={open}
-                setParentOpen={setOpen}/>
+                <ListItems key={i} item={nestedItem} collapsed={collapsed} />
               );
             })}
           </List>

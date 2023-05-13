@@ -10,7 +10,7 @@ const Extern = () => {
     <Box>
       <PageBody>
         <Box className={classes.content_body}>
-          <h1>Productores Semilleristas</h1>
+          <h1>Productores Externos</h1>
           <p>Instituto Nacional de Innovacion Agropecuaria Forestal Potsi</p>
         </Box>
       </PageBody>

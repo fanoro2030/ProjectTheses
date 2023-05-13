@@ -8,45 +8,23 @@ import { useStyles } from './sidebar_navigation.styles';
 const SidebarNavigation = ({ data, collapsed, ...props }) => {
   const classes = useStyles();
   const [openIndex, setOpenIndex] = useState(-1);
-  const [currentButton, setCurrentButton] = useState(-1);
-
-  const handleClick = (index) => {
-    setOpenIndex((openIndex) => {
-      if (openIndex === index) {
-        return -1;
-      } else {
-        if (data[index].subRoutes) {
-          setCurrentButton(index);
-        } else {
-          setOpenIndex(-1);
-          setCurrentButton(-1);
-        }
-
-        return index;
-      }
-    });
-  };
 
   const handleItemClick = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(-1);
-    } else {
-      setOpenIndex(index);
-    }
+    setOpenIndex(index);
   };
-
+  
   let renderData = data?.map((item, index) => {
     return (
       <ListItems
         key={index}
         item={item}
         open={openIndex === index}
-        onClick={() => handleClick(index)}
         onItemClick={() => handleItemClick(index)}
+        setOpen={(value) => setOpenIndex(value ? index : -1)}
       />
     );
   });
-
+  
   return (
     <Drawer
       variant={props.variant}
