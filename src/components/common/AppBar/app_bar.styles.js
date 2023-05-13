@@ -36,6 +36,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   horizontalList: {
     display: 'flex',
+    padding: 0,
     backgroundColor: theme.palette.background.transparent,
     border: `1px solid red`,
     alignItems: 'center',

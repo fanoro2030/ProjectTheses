@@ -14,10 +14,11 @@ const CustomAppBar = ({ data, position, ...props }) => {
   };
 
   let renderData = data?.map((item, index) => {
+    console.log(item);
     return (
       <ListItems
         key={index}
-        item={item}
+        item={{ name: item.name, url: item.url, subRoutes: item.subRoutes }}
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
