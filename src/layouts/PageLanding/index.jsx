@@ -18,7 +18,7 @@ const PageLandingLayout = ({ navigationHome, children }) => {
         position='right'
         handleDrawerToggle={handleDrawerToggle}
         appBar={classes.appBar}
-        data={navigationHome}
+        isPublic={true}
       />
       <Hidden xlDown>
         <SidebarNavigation

@@ -10,33 +10,35 @@ import {
 export const homeNavigation = [
   {
     name: 'Presentación',
-
+    isPublic: true,
     url: '/presentation',
   },
   {
     name: 'Sobre Nosotros',
-
+    isPublic: true,
     url: '/about-us',
   },
   {
     name: 'Nuestras Semillas',
-
+    isPublic: true,
     url: '/seeds-ours',
 
     subRoutes: [
       {
         name: 'Catálogo',
         url: '/seeds-ours/catalogue',
+        isPublic: true,
       },
       {
         name: 'Solagro Semillas',
         url: '/seeds-ours/solagro-seeds',
+        isPublic: true,
       },
     ],
   },
   {
     name: 'Nuestros Servicios',
-
+    isPublic: true,
     url: '/nuestros-servicios',
 
     subRoutes: [
@@ -54,12 +56,12 @@ export const homeNavigation = [
   },
   {
     name: 'Contacto',
-
+    isPublic: true,
     url: '/contacto',
   },
   {
     name: 'Login',
-
+    isPublic: true,
     url: '/login',
   },
 ];
@@ -196,6 +198,11 @@ export const mainNavigation = [
 */
 
 export const mainNavigation = [
+  {
+    name: 'Perfil',
+    icon: HomeIcon,
+    url: `/perfil`,
+  },
   {
     name: 'Principal',
     icon: HomeIcon,

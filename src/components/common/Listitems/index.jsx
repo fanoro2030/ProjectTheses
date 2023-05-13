@@ -9,7 +9,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import clsx from 'clsx';
+
 import { useStyles } from './list_items.styles';
 
 const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
@@ -29,25 +29,22 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
 
   return (
     <div
-      className={clsx(
-        classes.root,
-        hasSubRoutes && open && classes.expanded,
-        isSelected && classes.selected
-      )}
+      className={`${classes.root} ${
+        hasSubRoutes && open ? classes.expanded : ''
+      } ${isSelected ? classes.selected : ''}`}
     >
       <ListItem
         button
-        className={clsx(classes.listItem)}
+        className={classes.listItem}
         onClick={handleClick}
         disableGutters
       >
         <Box
           component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
-          className={clsx(
-            classes.listLink,
-            collapsed && classes.listLinkCollapsed
-          )}
+          className={`${classes.listLink} ${
+            collapsed ? classes.listLinkCollapsed : ''
+          }`}
         >
           <ListItemIcon className={classes.listIcon}>
             {(item.icon && <item.icon />) || ''}

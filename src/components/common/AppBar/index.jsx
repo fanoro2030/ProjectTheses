@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
-import { Menu as MenuIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Typography,
+  Hidden,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from '@material-ui/core';
+import { Menu as MenuIcon, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
-import ListItems from '../Listitems';
-
-const CustomAppBar = ({ data, position, ...props }) => {
+import { homeNavigation } from '../../../utils/navigationData';
+import useCollapse from '../../../hooks/useCollapse';
+const CustomAppBar = ({ position, isPublic, ...props }) => {
+  const history = useHistory();
   const classes = useStyles({ position });
+  const [isOpen, setIsOpen] = useState({});
 
-  const [openIndex, setOpenIndex] = useState(-1);
-
-  const handleItemClick = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+  const handleMenuClick = (url) => {
+    history.push(url);
   };
 
-  let renderData = data?.map((item, index) => {
-    console.log(item);
-    return (
-      <ListItems
-        key={index}
-        item={{ name: item.name, url: item.url, subRoutes: item.subRoutes }}
-        open={openIndex === index}
-        onItemClick={() => handleItemClick(index)}
-        setOpen={(value) => setOpenIndex(value ? index : -1)}
-      />
-    );
-  });
+  const toggle = (index) => {
+    setIsOpen({ ...isOpen, [index]: !isOpen[index] });
+  };
 
   return (
     <AppBar
@@ -44,7 +47,56 @@ const CustomAppBar = ({ data, position, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Grid className={classes.horizontalList}>{renderData}</Grid>
+          {isPublic && (
+            <div>
+              {homeNavigation.map((navItem, index) => {
+                if (navItem.isMenu) {
+                  return (
+                    <React.Fragment key={index}>
+                      <ListItem
+                        button
+                        onClick={() => toggle(index)}
+                      >
+                        <ListItemIcon>{navItem.icon}</ListItemIcon>
+                        <ListItemText primary={navItem.name} />
+                        {isOpen[index] ? <ExpandLess /> : <ExpandMore />}
+                      </ListItem>
+                      <Collapse
+                        in={isOpen[index]}
+                        timeout='auto'
+                        unmountOnExit
+                      >
+                        {navItem.subRoutes.map((subRoute, subIndex) => (
+                          <Button
+                            key={subIndex}
+                            color='inherit'
+                            component={Typography}
+                            variant='h6'
+                            className={classes.subMenuButton}
+                            onClick={() => handleMenuClick(subRoute.url)}
+                          >
+                            {subRoute.name}
+                          </Button>
+                        ))}
+                      </Collapse>
+                    </React.Fragment>
+                  );
+                }
+                return (
+                  <Button
+                    key={index}
+                    color='inherit'
+                    component={Typography}
+                    variant='h6'
+                    className={classes.menuButton}
+                    onClick={() => handleMenuClick(navItem.url)}
+                  >
+                    {navItem.name}
+                  </Button>
+                );
+              })}
+            </div>
+          )}
         </Hidden>
       </Toolbar>
     </AppBar>

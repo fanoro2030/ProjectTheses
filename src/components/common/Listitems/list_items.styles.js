@@ -9,9 +9,11 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   listItem: {
-    transition: 'all .5s',
-    display: 'flex',
-    flexDirection: 'column',
+    paddingTop: 4,
+    paddingBottom: 4,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
   listLink: {
     padding: '0 15px',
@@ -21,17 +23,21 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    padding: '4px 8px',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
   listLinkCollapsed: {
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(7),
-      flexDirection: 'column',
-      justifyContent: 'left',
+      justifyContent: 'center',
     },
   },
   listIcon: {
     color: 'inherit',
     justifyContent: 'left',
+    minWidth: 32,
   },
   listItemText: {
     [theme.breakpoints.up('md')]: {
@@ -43,9 +49,5 @@ export const useStyles = makeStyles((theme) => ({
   },
   selected: {
     backgroundColor: lighten(theme.palette.secondary.main, 0.3),
-  },
-  activeButton: {
-    backgroundCcolor: '#fff',
-    color: '#000',
   },
 }));

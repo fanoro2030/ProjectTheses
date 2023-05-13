@@ -31,18 +31,23 @@ export const useStyles = makeStyles((theme, item) => ({
   },
   horizontalList: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'right',
     alignItems: 'center',
     textAlign: 'center !important', // añadimos !important
     padding: '0px',
     margin: '0px',
     listStyle: 'none',
-    width: '100%',
+    border: '2px solid blue',
   },
   centered: {
+    border: '2px solid red',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'left',
+    alignItems: 'right',
+    textAlign: 'center!important',
+    padding: '0px',
+    margin: '0px',
+    listStyle: 'none',
   },
   customList: {
     display: 'flex',
