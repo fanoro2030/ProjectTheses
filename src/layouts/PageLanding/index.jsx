@@ -11,9 +11,9 @@ const PageLandingLayout = ({ navigationHome, children }) => {
     <div className={classes.root}>
       <CustomAppBar
         position='right'
-        isPublic
         handleDrawerToggle={handleDrawerToggle}
         appBar={classes.appBar}
+        data={navigationHome}
       />
       <Hidden xlDown>
         <SidebarNavigation

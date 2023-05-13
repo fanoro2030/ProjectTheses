@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -10,9 +10,9 @@ import {
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
-import { homeNavigation } from '../../../utils/navigationData';
+import ListItems from '../Listitems';
 
-const CustomAppBar = ({ position, isPublic, ...props }) => {
+const CustomAppBar = ({ data, position, ...props }) => {
   const history = useHistory();
 
   const handleMenuClick = (url) => {
@@ -20,6 +20,24 @@ const CustomAppBar = ({ position, isPublic, ...props }) => {
   };
 
   const classes = useStyles({ position });
+
+  const [openIndex, setOpenIndex] = useState(-1);
+
+  const handleItemClick = (index) => {
+    setOpenIndex(openIndex === index ? -1 : index);
+  };
+
+  let renderData = data?.map((item, index) => {
+    return (
+      <ListItems
+        key={index}
+        item={item}
+        open={openIndex === index}
+        onItemClick={() => handleItemClick(index)}
+        setOpen={(value) => setOpenIndex(value ? index : -1)}
+      />
+    );
+  });
 
   return (
     <AppBar
@@ -38,25 +56,7 @@ const CustomAppBar = ({ position, isPublic, ...props }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <Hidden smDown>
-          {isPublic && (
-            <div>
-              {homeNavigation.map((navItem, index) => {
-                return (
-                  <Button
-                    key={index}
-                    color='inherit'
-                    component={Typography}
-                    variant='h6'
-                    onClick={() => handleMenuClick(navItem.url)}
-                  >
-                    {navItem.name}
-                  </Button>
-                );
-              })}
-            </div>
-          )}
-        </Hidden>
+        <div className={classes.horizontalList}>{renderData}</div>
       </Toolbar>
     </AppBar>
   );

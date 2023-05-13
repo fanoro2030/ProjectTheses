@@ -11,4 +11,31 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: position === 'left' ? theme.spacing(2) : 0,
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
+  list: {
+    display: 'flex',
+
+    flexDirection: 'row',
+    alignItems: 'right',
+    padding: 0,
+    '& > li': {
+      marginRight: theme.spacing(10),
+    },
+
+    backgroundColor: theme.palette.background.transparent,
+    border: `1px solid red`,
+  },
+  listItem: {
+    borderBottom: `1px solid red`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 0,
+    '& > div': {
+      marginRight: theme.spacing(20),
+    },
+  },
+  horizontalList: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));

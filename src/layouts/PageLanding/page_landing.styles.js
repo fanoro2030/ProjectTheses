@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { primaryColor, tertiaryColor } from '../../theme/constants/colors';
 // Estilos para PageLayout
-const drawerWidth = 240;
+const drawerWidth = 260;
 export const useStylesPageLayout = makeStyles((theme) => ({
   root: {
     display: 'flex',
