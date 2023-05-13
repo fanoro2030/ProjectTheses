@@ -1,27 +1,28 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Box,List, ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
+import {
+  Box,
+  Collapse,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({
-  item,
-  open,
-  collapsed,
-  onClick,
-  parentOpen,
-  setParentOpen,
-  onItemClick,
-}) => {
+const ListItems = ({ item, collapsed, parentOpen, setParentOpen, onItemClick }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
+  //hook/////////////////////////
+  const [open, setOpen] = React.useState(false);
   const hasSubRoutes = Array.isArray(item.subRoutes);
-  const [isOpen, setIsOpen] = React.useState(false);
+
   const handleClick = () => {
-    if (hasSubRoutes) {
-      setIsOpen(!isOpen);
-      if (collapsed && isOpen) {
+    if (item.subRoutes) {
+      setOpen(!open);
+      if (collapsed && open) {
         setParentOpen(false);
       }
     } else {
@@ -30,34 +31,35 @@ const ListItems = ({
   };
 
   const handleParentOpen = () => {
-    if (!isOpen && parentOpen) {
+    if (!open && parentOpen) {
       setParentOpen(false);
     } else if (!parentOpen) {
       setParentOpen(true);
     }
   }
-
-  const isSelected = !hasSubRoutes && pathname === item.url;
-
   React.useEffect(() => {
-    if (open === false) {
-      setIsOpen(false);
+    if (pathname.search(new RegExp(item.url, 'g')) !== -1) {
+      setOpen(true);
     }
-  }, [open]);
-
+  }, [pathname, item.url]);
+  //hook convert/////////////////////////
   return (
     <div
       className={clsx(
         classes.root,
         hasSubRoutes && open && classes.expanded,
-        isSelected && classes.selected
+        pathname.search(new RegExp(item.url, 'g')) !== -1 &&
+          !hasSubRoutes &&
+          classes.selected
       )}
     >
-     <ListItem button className={clsx(classes.listItem)} onClick={handleClick} disableGutters>
-
-
-       
-     <Box
+      <ListItem
+        button
+        className={clsx(classes.listItem)}
+        onClick={handleClick}
+        disableGutters
+      >
+        <Box
           component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
           className={clsx(
@@ -80,26 +82,23 @@ const ListItems = ({
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
         </Box>
-      </ListItem>{' '}
-      {hasSubRoutes && (
-        <Collapse
-          in={isOpen}
-          timeout='auto'
-          unmountOnExit
-        >
+      </ListItem>
+
+      {hasSubRoutes&& (
+        <Collapse in={open} timeout='auto' unmountOnExit>
           <List disablePadding>
-            {item.subRoutes.map((nestedItem, i) => (
-              <ListItems
-                key={i}
+            {item.subRoutes.map((nestedItem, i) => {
+              return (
+                <ListItems key={i} 
                 item={nestedItem}
-                open={open}
-                collapsed={collapsed}
-                onClick={handleParentOpen}
-                parentOpen={isOpen}
-                setParentOpen={setIsOpen}
+                 collapsed={collapsed}
+                 open={open}
                 onItemClick={onItemClick}
-              />
-            ))}
+                  onClick={handleParentOpen}
+                parentOpen={open}
+                setParentOpen={setOpen}/>
+              );
+            })}
           </List>
         </Collapse>
       )}

@@ -201,6 +201,7 @@ export const mainNavigation = [
     name: 'Productor',
     icon: HomeIcon,
     url: `/producers`,
+    isMenu: true, // nueva propiedad
     subRoutes: [
       {
         name: 'Semillerista',
@@ -224,6 +225,7 @@ export const mainNavigation = [
     name: 'Recepción',
     icon: HomeIcon,
     url: `/seed_repection`,
+    isMenu: true, // nueva propiedad
     subRoutes: [
       {
         name: 'Ingresos',

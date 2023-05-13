@@ -28,11 +28,12 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
   };
 
   const handleItemClick = (index) => {
-    if (!data[index].subRoutes) {
+    if (openIndex === index) {
       setOpenIndex(-1);
-      setCurrentButton(-1);
+    } else {
+      setOpenIndex(index);
     }
-  }
+  };
 
   let renderData = data?.map((item, index) => {
     return (
