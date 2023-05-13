@@ -12,36 +12,37 @@ export const useStyles = makeStyles((theme, item) => ({
     marginRight: position === 'left' ? theme.spacing(2) : 0,
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  list: {
+  listItemRoot: {
+    margin: '0 12px',
+    padding: '0 12px',
+    cursor: 'pointer',
     display: 'flex',
-
-    flexDirection: 'row',
-    alignItems: 'right',
-    padding: 0,
-    '& > li': {
-      marginRight: theme.spacing(10),
-    },
-
-    backgroundColor: theme.palette.background.transparent,
-    border: `1px solid red`,
-  },
-  listItem: {
-    borderBottom: `1px solid red`,
-    display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: 0,
-    '& > div': {
-      marginRight: theme.spacing(20),
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      color: '#fff',
+      borderRadius: 4,
     },
+  },
+  listItemName: {
+    fontWeight: 600,
+    fontSize: 16,
+    marginLeft: 8,
   },
   horizontalList: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center', // agrega este estilo para centrar horizontalmente
-    [theme.breakpoints.up('md')]: {
-      justifyContent: 'flex-end',
-    },
+    textAlign: 'center !important', // añadimos !important
+    padding: '0px',
+    margin: '0px',
+    listStyle: 'none',
+    width: '100%',
+  },
+  centered: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'left',
   },
   customList: {
     display: 'flex',

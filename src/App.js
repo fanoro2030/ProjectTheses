@@ -8,7 +8,7 @@ import PublicRoutes from './routes/publicRoutes';
 function App() {
   return (
     <Router>
-      <PublicRoutes />
+      <PrivateRoutes />
     </Router>
   );
 }
