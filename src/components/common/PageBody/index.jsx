@@ -1,10 +1,9 @@
 import React from 'react';
-//import { Content } from '../../Global';
-import { Container } from '@material-ui/core';
+import { Content } from '../Content';
 import { useStyles } from './page_body.styles';
 const PageBody = ({ children }) => {
   const classes = useStyles();
-  return <Container className={classes.page_body}>{children}</Container>;
+  return <Content className={classes.page_body}>{children}</Content>;
 };
 
 export default PageBody;

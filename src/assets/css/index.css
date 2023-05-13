@@ -1,0 +1,26 @@
+body {
+  display: "flex";
+  margin: 0;
+  padding: 0;
+  overflow: scroll;
+}
+.common-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: "flex-start";
+}
+.common-section {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}
+.common-content {
+  display: flex;
+  overflow: auto;
+  align-items: "flex-start";
+}

@@ -7,10 +7,10 @@ const Presentation = () => {
   const classes = useStyles();
   return (
     <Box>
-      <PageHeader title='Home' />
+      <PageHeader title='Presentation' />
       <PageBody>
         <div className={classes.content_body}>
-          <Typography variant='h5'>Home</Typography>
+          <Typography variant='h5'>Presentation</Typography>
         </div>
       </PageBody>
     </Box>

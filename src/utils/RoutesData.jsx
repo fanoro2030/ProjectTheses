@@ -7,20 +7,24 @@ export const homeRoutes = [
     component: lazy(() => importPage('PagesLanding', ['Presentation'])),
   },
   {
-    path: '/sobre-nosotros',
-    component: lazy(() => importPage('PagesLanding', 'SobreNosotros')),
+    path: '/about-us',
+    component: lazy(() => importPage('PagesLanding', 'AboutUs')),
   },
   {
-    path: '/nuestras-semillas',
-    component: lazy(() => importPage('PagesLanding', 'NuestrasSemillas')),
+    path: '/seeds-ours',
+    component: lazy(() => importPage('PagesLanding', 'SeedsOurs', 'routes')),
     routes: [
       {
-        path: '/catalogo',
-        component: lazy(() => importPage('PagesLanding', 'Catalogo')),
+        path: '/seeds-ours/catalogue',
+        component: lazy(() =>
+          importPage('PagesLanding', 'SeedsOurs', 'Catalogue')
+        ),
       },
       {
-        path: '/solagro-semillas',
-        component: lazy(() => importPage('PagesLanding', 'SolagroSemillas')),
+        path: '/seeds-ours/solagro-seeds',
+        component: lazy(() =>
+          importPage('PagesLanding', 'SeedsOurs', 'SolagroSeeds')
+        ),
       },
     ],
   },
@@ -40,11 +44,13 @@ export const homeRoutes = [
   },
   {
     path: '/contacto',
-    component: lazy(() => importPage('PagesLanding', 'Contacto')),
+    component: lazy(() => importPage('PagesLanding', 'ContactUs')),
   },
   {
     path: '/login',
-    component: lazy(() => importPage('PagesLanding', 'Login')),
+    component: lazy(() =>
+      importPage('PagesLanding', 'authentication', 'SignIn')
+    ),
   },
 ];
 

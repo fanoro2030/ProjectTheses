@@ -10,33 +10,33 @@ import {
 export const homeNavigation = [
   {
     name: 'Presentación',
-    icon: HomeIcon,
+
     url: '/presentation',
   },
   {
     name: 'Sobre Nosotros',
-    icon: InfoIcon,
-    url: '/sobre-nosotros',
+
+    url: '/about-us',
   },
   {
     name: 'Nuestras Semillas',
-    icon: LocalFloristIcon,
-    url: '/nuestras-semillas',
+
+    url: '/seeds-ours',
 
     subRoutes: [
       {
         name: 'Catálogo',
-        url: '/catalogo',
+        url: '/seeds-ours/catalogue',
       },
       {
         name: 'Solagro Semillas',
-        url: '/solagro-semillas',
+        url: '/seeds-ours/solagro-seeds',
       },
     ],
   },
   {
     name: 'Nuestros Servicios',
-    icon: BuildIcon,
+
     url: '/nuestros-servicios',
 
     subRoutes: [
@@ -54,12 +54,12 @@ export const homeNavigation = [
   },
   {
     name: 'Contacto',
-    icon: ContactMailIcon,
+
     url: '/contacto',
   },
   {
     name: 'Login',
-    icon: LockOpenIcon,
+
     url: '/login',
   },
 ];

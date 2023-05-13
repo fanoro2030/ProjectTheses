@@ -1,7 +1,8 @@
 import React from 'react';
 import CustomAppBar from '../../components/common/AppBar';
 import SidebarNavigation from '../../components/common/Sidebar';
-import { Hidden } from '@material-ui/core';
+import { Hidden, Box } from '@material-ui/core';
+import { Container } from '../../components/common/Container';
 import useDrawer from '../../hooks/useDrawer';
 import { useStylesDashboardLayout } from './dashboard_layout.styles';
 
@@ -9,7 +10,7 @@ const DashboardLayout = ({ navigationMain, children }) => {
   const classes = useStylesDashboardLayout();
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
-    <div className={classes.root}>
+    <Container>
       <CustomAppBar
         position='left'
         handleDrawerToggle={handleDrawerToggle}
@@ -34,11 +35,11 @@ const DashboardLayout = ({ navigationMain, children }) => {
         />
       </Hidden>
 
-      <main className={classes.content}>
-        <div />
-        {children}
-      </main>
-    </div>
+      <Box className={classes.content}>
+        <Box className={classes.toolbar} />
+        <Box>{children}</Box>
+      </Box>
+    </Container>
   );
 };
 

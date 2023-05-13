@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import CustomAppBar from '../../components/common/AppBar';
 import SidebarNavigation from '../../components/common/Sidebar';
+import { Container } from '../../components/common/Container';
+import { Content } from '../../components/common/Content';
 import { Hidden, Box } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
+import Slider from '../../components/common/Slider';
+import Footer from '../../components/common/Footer';
 import { useStylesPageLayout } from './page_landing.styles';
 const PageLandingLayout = ({ navigationHome, children }) => {
   const classes = useStylesPageLayout();
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
-    <div className={classes.root}>
+    <Container>
+      <Slider />
       <CustomAppBar
         position='right'
         handleDrawerToggle={handleDrawerToggle}
@@ -33,11 +38,10 @@ const PageLandingLayout = ({ navigationHome, children }) => {
           data={navigationHome}
         />
       </Hidden>
-      <main className={classes.content}>
-        <div />
-        {children}
-      </main>
-    </div>
+      <Content className={classes.page_layout}>
+        {children} <Footer />
+      </Content>
+    </Container>
   );
 };
 
