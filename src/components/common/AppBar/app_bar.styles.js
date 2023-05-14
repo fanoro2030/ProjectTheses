@@ -1,7 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme, item) => ({
   appBar: ({ position }) => ({
+    position: 'fixed',
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${position === 'left' ? 240 : 0}px)`,
       marginLeft: position === 'left' ? 240 : 0,
@@ -13,28 +14,35 @@ export const useStyles = makeStyles((theme) => ({
   }),
   root: {
     backgroundColor: 'red',
-    border: `2px solid white`,
-    borderRadius: theme.shape.borderRadius,
   },
-  extended: {
-    backgroundColor: 'green',
-    padding: theme.spacing(2),
-    borderRadius: theme.shape.borderRadius,
-  },
-  selected: {
-    backgroundColor: 'green',
-    paddingRight: theme.spacing(-15),
-    borderRadius: theme.shape.borderRadius,
-  },
-  content_grid: {
+  list: {
     display: 'flex',
 
+    flexDirection: 'row',
     alignItems: 'right',
+    padding: 0,
+    '& > li': {
+      marginRight: theme.spacing(10),
+    },
+
+    backgroundColor: theme.palette.background.transparent,
+    border: `1px solid red`,
+  },
+  listItem: {
+    borderBottom: `1px solid red`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 0,
+    '& > div': {
+      marginRight: theme.spacing(20),
+    },
   },
   horizontalList: {
     display: 'flex',
 
-    backgroundColor: theme.palette.background.transparent,
-    border: `1px solid red`,
+    flexDirection: 'row',
+
+    alignItems: 'center',
   },
 }));

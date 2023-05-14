@@ -12,7 +12,14 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
+const ListItems = ({
+  item,
+  open,
+  collapsed,
+  setOpen,
+  onItemClick,
+  ...props
+}) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   const hasSubRoutes = Array.isArray(item.subRoutes);
@@ -29,9 +36,11 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
 
   return (
     <div
-      className={`${classes.root} ${
-        hasSubRoutes && open ? classes.expanded : ''
-      } ${isSelected ? classes.selected : ''}`}
+      className={`${{
+        [classes.root]: props.root,
+      }} ${hasSubRoutes && open ? classes.expanded : ''} ${
+        isSelected ? classes.selected : ''
+      }`}
     >
       <ListItem
         button
