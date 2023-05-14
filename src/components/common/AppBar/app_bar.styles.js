@@ -12,46 +12,35 @@ export const useStyles = makeStyles((theme, item) => ({
     marginRight: position === 'left' ? theme.spacing(2) : 0,
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  listItemRoot: {
-    margin: '0 12px',
-    padding: '0 12px',
-    cursor: 'pointer',
+  list: {
     display: 'flex',
+
+    flexDirection: 'row',
+    alignItems: 'right',
+    padding: 0,
+    '& > li': {
+      marginRight: theme.spacing(10),
+    },
+
+    backgroundColor: theme.palette.background.transparent,
+    border: `1px solid red`,
+  },
+  listItem: {
+    borderBottom: `1px solid red`,
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-      color: '#fff',
-      borderRadius: 4,
+    padding: 0,
+    '& > div': {
+      marginRight: theme.spacing(20),
     },
   },
-  listItemName: {
-    fontWeight: 600,
-    fontSize: 16,
-    marginLeft: 8,
-  },
-  horizontalList: {
+
+  listContainer: {
+    border: `1px solid red`,
     display: 'flex',
-    justifyContent: 'right',
+    flexDirection: 'row',
     alignItems: 'center',
-    textAlign: 'center !important', // añadimos !important
-    padding: '0px',
-    margin: '0px',
-    listStyle: 'none',
-    border: '2px solid blue',
-  },
-  centered: {
-    border: '2px solid red',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'right',
-    textAlign: 'center!important',
-    padding: '0px',
-    margin: '0px',
-    listStyle: 'none',
-  },
-  customList: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 }));
