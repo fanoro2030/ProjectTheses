@@ -1,36 +1,20 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
+import React from 'react';
+
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Typography,
+  Hidden,
+} from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
-import CustomButton from '../../controls/CustomButton';
+import { homeNavigation } from '../../../utils/navigationData';
+import SubMenu from './SubMenu';
 
-const CustomAppBar = ({ data, position, ...props }) => {
+const CustomAppBar = ({ position, isPublic, ...props }) => {
   const classes = useStyles({ position });
-
-  const [openIndex, setOpenIndex] = useState(-1);
-
-  const handleItemClick = (index, hasSubRoutes, url) => {
-    if (hasSubRoutes) {
-      setOpenIndex(openIndex === index ? -1 : index);
-    } else if (index !== openIndex || !hasSubRoutes) {
-      setOpenIndex(-1);
-      props.history.push(url);
-    }
-  };
-
-  let renderData = data?.map((item, index) => {
-    return (
-      <CustomButton
-        key={index}
-        label={item.name}
-        href={item.url}
-        subRoutes={item.subRoutes}
-        open={openIndex === index}
-        onItemClick={() => handleItemClick(index, !!item.subRoutes, item.url)}
-        setOpen={(value) => setOpenIndex(value ? index : -1)}
-      />
-    );
-  });
 
   return (
     <AppBar
@@ -50,7 +34,29 @@ const CustomAppBar = ({ data, position, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Grid className={classes.horizontalList}>{renderData}</Grid>
+          {isPublic &&
+            homeNavigation.map((route) => {
+              if (!route.subRoutes) {
+                return (
+                  <Button
+                    key={route.url}
+                    color='inherit'
+                    className={classes.listContainer}
+                    href={route.url}
+                  >
+                    {route.name}
+                  </Button>
+                );
+              } else {
+                return (
+                  <SubMenu
+                    key={route.url}
+                    route={route}
+                    className={classes.listr}
+                  />
+                );
+              }
+            })}
         </Hidden>
       </Toolbar>
     </AppBar>
