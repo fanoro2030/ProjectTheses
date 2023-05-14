@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Hidden,
+  Grid,
+  Box,
+} from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
 import { Content } from '../Content';
+
 const CustomAppBar = ({ data, position, ...props }) => {
   const classes = useStyles({ position });
 
@@ -24,8 +32,6 @@ const CustomAppBar = ({ data, position, ...props }) => {
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
         root={classes.root}
-        expanded={classes.expanded}
-        selected={classes.selected} // pasar los estilos personalizados como una prop
       />
     );
   });

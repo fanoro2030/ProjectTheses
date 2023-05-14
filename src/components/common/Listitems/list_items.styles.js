@@ -16,6 +16,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   listLink: {
+    // border: '1px solid white',
     padding: '0 15px',
     textDecoration: 'none',
     color: 'inherit',
@@ -31,7 +32,7 @@ export const useStyles = makeStyles((theme) => ({
   listLinkCollapsed: {
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(7),
-      justifyContent: 'center',
+      justifyContent: 'left',
     },
   },
   listIcon: {

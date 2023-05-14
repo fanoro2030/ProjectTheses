@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, lighten } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme, item) => ({
   appBar: ({ position }) => ({
@@ -12,12 +12,9 @@ export const useStyles = makeStyles((theme, item) => ({
     marginRight: position === 'left' ? theme.spacing(2) : 0,
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  root: {
-    backgroundColor: 'red',
-  },
+
   list: {
     display: 'flex',
-
     flexDirection: 'row',
     alignItems: 'right',
     padding: 0,
@@ -35,14 +32,25 @@ export const useStyles = makeStyles((theme, item) => ({
     alignItems: 'center',
     padding: 0,
     '& > div': {
-      marginRight: theme.spacing(20),
+      marginRight: theme.spacing(70),
     },
   },
   horizontalList: {
     display: 'flex',
 
     flexDirection: 'row',
-
-    alignItems: 'center',
+    textAlign: 'center',
   },
+  renderData: {
+    border: `1px solid white`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'left',
+  },
+  root: ({ position }) => ({
+    backgroundColor: 'red',
+    marginLeft: position === 'right' ? 'auto' : 0,
+  }),
+  selected: { color: 'green' },
+  expanded: { color: 'blue' },
 }));
