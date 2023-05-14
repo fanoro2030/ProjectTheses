@@ -33,12 +33,12 @@ const ListItems = ({
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
-  const { root } = props;
+  const { root, expanded, selected } = props;
   return (
     <div
-      className={`${classes.root}${root}  ${
-        hasSubRoutes && open ? classes.expanded : ''
-      } ${isSelected ? classes.selected : ''}`}
+      className={`${classes.root} ${root}  ${
+        hasSubRoutes && open ? classes.expanded : expanded || ''
+      } ${isSelected ? classes.selected : selected || ''}`}
     >
       <ListItem
         button

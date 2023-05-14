@@ -37,20 +37,18 @@ export const useStyles = makeStyles((theme, item) => ({
   },
   horizontalList: {
     display: 'flex',
-
+    width: '90%',
+    marginLeft: 4,
     flexDirection: 'row',
     textAlign: 'center',
   },
-  renderData: {
-    border: `1px solid white`,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'left',
-  },
+
   root: ({ position }) => ({
+    marginLeft: 4,
     backgroundColor: 'red',
-    marginLeft: position === 'right' ? 'auto' : 0,
+    width: '100%',
+    marginLeft: position === 'right',
   }),
-  selected: { color: 'green' },
   expanded: { color: 'blue' },
+  selected: { color: 'orange' },
 }));
