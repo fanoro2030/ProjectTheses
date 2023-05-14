@@ -1,20 +1,34 @@
-import React from 'react';
-
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  Typography,
-  Hidden,
-} from '@material-ui/core';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
-import { homeNavigation } from '../../../utils/navigationData';
-import SubMenu from './SubMenu';
-
-const CustomAppBar = ({ position, isPublic, ...props }) => {
+import ListItems from '../Listitems';
+import { Content } from '../Content';
+const CustomAppBar = ({ data, position, ...props }) => {
   const classes = useStyles({ position });
+
+  const [openIndex, setOpenIndex] = useState(-1);
+
+  const handleItemClick = (index) => {
+    setOpenIndex(openIndex === index ? -1 : index);
+  };
+
+  let renderData = data?.map((item, index) => {
+    const { name, url, subRoutes } = item;
+    console.log(item);
+    return (
+      <ListItems
+        key={index}
+        item={{ name, url, subRoutes }}
+        open={openIndex === index}
+        onItemClick={() => handleItemClick(index)}
+        setOpen={(value) => setOpenIndex(value ? index : -1)}
+        root={classes.root}
+        expanded={classes.expanded}
+        selected={classes.selected} // pasar los estilos personalizados como una prop
+      />
+    );
+  });
 
   return (
     <AppBar
@@ -34,29 +48,9 @@ const CustomAppBar = ({ position, isPublic, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          {isPublic &&
-            homeNavigation.map((route) => {
-              if (!route.subRoutes) {
-                return (
-                  <Button
-                    key={route.url}
-                    color='inherit'
-                    className={classes.listContainer}
-                    href={route.url}
-                  >
-                    {route.name}
-                  </Button>
-                );
-              } else {
-                return (
-                  <SubMenu
-                    key={route.url}
-                    route={route}
-                    className={classes.listr}
-                  />
-                );
-              }
-            })}
+          <Content className={classes.root}>
+            <Grid className={classes.horizontalList}>{renderData}</Grid>
+          </Content>
         </Hidden>
       </Toolbar>
     </AppBar>

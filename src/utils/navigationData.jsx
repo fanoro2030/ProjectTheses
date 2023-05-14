@@ -11,57 +11,48 @@ export const homeNavigation = [
   {
     name: 'Presentación',
     url: '/presentation',
-    isPublic: true,
   },
   {
     name: 'Sobre Nosotros',
     url: '/about-us',
-    isPublic: true,
   },
   {
     name: 'Nuestras Semillas',
     url: '/seeds-ours',
-    isPublic: true,
+
     subRoutes: [
       {
         name: 'Catálogo',
         url: '/seeds-ours/catalogue',
-        isPublic: true,
       },
       {
         name: 'Solagro Semillas',
         url: '/seeds-ours/solagro-seeds',
-        isPublic: true,
       },
     ],
   },
   {
     name: 'Nuestros Servicios',
     url: '/nuestros-servicios',
-    isPublic: true,
 
     subRoutes: [
       {
         name: 'Asesoramiento',
         url: '/asesoramiento',
-        isPublic: true,
       },
       {
         name: 'Limpieza y Selección',
         url: '/limpieza-y-seleccion',
-        isPublic: true,
       },
     ],
   },
   {
     name: 'Contacto',
     url: '/contacto',
-    isPublic: true,
   },
   {
     name: 'Login',
     url: '/login',
-    isPublic: true,
   },
 ];
 
