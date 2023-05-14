@@ -9,12 +9,16 @@ const CustomAppBar = ({ data, position, ...props }) => {
 
   const [openIndex, setOpenIndex] = useState(-1);
 
-  const handleItemClick = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+  const handleItemClick = (index, hasSubRoutes, url) => {
+    if (hasSubRoutes) {
+      setOpenIndex(openIndex === index ? -1 : index);
+    } else if (index !== openIndex || !hasSubRoutes) {
+      setOpenIndex(-1);
+      props.history.push(url);
+    }
   };
 
   let renderData = data?.map((item, index) => {
-    console.log(item);
     return (
       <CustomButton
         key={index}
@@ -22,7 +26,7 @@ const CustomAppBar = ({ data, position, ...props }) => {
         href={item.url}
         subRoutes={item.subRoutes}
         open={openIndex === index}
-        onItemClick={() => handleItemClick(index)}
+        onItemClick={() => handleItemClick(index, !!item.subRoutes, item.url)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
       />
     );

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
-import { useStyles } from './custom_button.styles';
-const CustomButton = ({ size, color, variant, label, href, subRoutes }) => {
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
+const CustomButton = ({ label, href, subRoutes }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +30,8 @@ const CustomButton = ({ size, color, variant, label, href, subRoutes }) => {
         aria-controls='sub-routes'
         aria-haspopup='true'
         className={classes.button}
-        variant={variant || 'contained'}
-        size={size || 'large'}
-        color={color || 'primary'}
+        color='primary'
+        component='a'
         href={href}
         onClick={subRoutes && handleMenuClick}
       >
@@ -38,9 +43,6 @@ const CustomButton = ({ size, color, variant, label, href, subRoutes }) => {
           id='sub-routes'
           anchorEl={anchorEl}
           open={isOpen}
-          variant={variant || 'contained'}
-          size={size || 'large'}
-          color={color || 'primary'}
           onClose={handleClose}
           getContentAnchorEl={null}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

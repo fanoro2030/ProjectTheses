@@ -10,17 +10,16 @@ import {
 export const homeNavigation = [
   {
     name: 'Presentación',
-
     url: '/presentation',
+    subRoutes: null,
   },
   {
     name: 'Sobre Nosotros',
-
     url: '/about-us',
+    subRoutes: null,
   },
   {
     name: 'Nuestras Semillas',
-
     url: '/seeds-ours',
 
     subRoutes: [
@@ -36,7 +35,6 @@ export const homeNavigation = [
   },
   {
     name: 'Nuestros Servicios',
-
     url: '/nuestros-servicios',
 
     subRoutes: [
@@ -52,13 +50,13 @@ export const homeNavigation = [
   },
   {
     name: 'Contacto',
-
     url: '/contacto',
+    subRoutes: null,
   },
   {
     name: 'Login',
-
     url: '/login',
+    subRoutes: null,
   },
 ];
 
