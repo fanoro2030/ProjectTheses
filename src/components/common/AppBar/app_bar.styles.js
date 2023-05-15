@@ -35,20 +35,41 @@ export const useStyles = makeStyles((theme, item) => ({
       marginRight: theme.spacing(70),
     },
   },
-  horizontalList: {
+  horizontalList: ({ position }) => ({
     display: 'flex',
-    width: '90%',
-    marginLeft: 4,
-    flexDirection: 'row',
-    textAlign: 'center',
-  },
+    marginLeft: position === 'right' ? 'auto' : 0,
+    backgroundColor: 'red',
+    border: `1px solid white`,
+    width: '100%',
+    '& > div': {
+      marginRight: theme.spacing(11),
+    },
+  }),
 
   root: ({ position }) => ({
-    marginLeft: 4,
-    backgroundColor: 'red',
-    width: '100%',
-    marginLeft: position === 'right',
+    border: `1px solid blue`,
+    flexDirection: 'row',
+    width: '88%',
+    margin: '4px auto',
+    borderRadius: '8px',
+    transition: 'all .5s',
+    overflow: 'hidden',
+
+    marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  expanded: { color: 'blue' },
-  selected: { color: 'orange' },
+  expanded: { color: 'white' },
+  selected: {
+    color: 'y#ece8dd',
+    backgroundColor: theme.palette.primary.secondary,
+  },
+  listItem: {
+    paddingTop: 1,
+    paddingBottom: 1,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.main,
+    },
+  },
+  listItemText: {
+    fontSize: 16,
+  },
 }));

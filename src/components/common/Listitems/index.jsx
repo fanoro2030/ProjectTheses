@@ -33,7 +33,7 @@ const ListItems = ({
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
-  const { root, expanded, selected } = props;
+  const { root, expanded, selected, listItem, listItemText } = props;
   return (
     <div
       className={`${classes.root} ${root}  ${
@@ -42,7 +42,7 @@ const ListItems = ({
     >
       <ListItem
         button
-        className={classes.listItem}
+        className={`${classes.listItem} ${listItem}`}
         onClick={handleClick}
         disableGutters
       >
@@ -57,7 +57,9 @@ const ListItems = ({
             {(item.icon && <item.icon />) || ''}
           </ListItemIcon>
           <ListItemText
-            classes={{ primary: collapsed ? classes.listItemText : '' }}
+            classes={{
+              primary: collapsed ? classes.listItemText : listItemText || '',
+            }}
           >
             {item.name}
           </ListItemText>

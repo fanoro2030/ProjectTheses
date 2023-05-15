@@ -31,9 +31,10 @@ const CustomAppBar = ({ data, position, ...props }) => {
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
-        root={classes.root}
         expanded={classes.expanded}
         selected={classes.selected}
+        ListItem={classes.ListItem}
+        listItemText={classes.listItemText}
       />
     );
   });
@@ -56,9 +57,9 @@ const CustomAppBar = ({ data, position, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Content className={classes.root}>
-            <Grid className={classes.horizontalList}>{renderData}</Grid>
-          </Content>
+          <Grid className={classes.horizontalList}>
+            <Content className={classes.root}>{renderData}</Content>
+          </Grid>
         </Hidden>
       </Toolbar>
     </AppBar>
