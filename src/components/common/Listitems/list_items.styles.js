@@ -51,4 +51,19 @@ export const useStyles = makeStyles((theme) => ({
   selected: {
     backgroundColor: lighten(theme.palette.secondary.main, 0.3),
   },
+  popover: {
+    justifyContent: 'center',
+
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      marginTop: theme.spacing(2),
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(6),
+    },
+  },
+  paper: {
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
 }));

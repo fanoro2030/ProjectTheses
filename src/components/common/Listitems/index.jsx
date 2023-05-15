@@ -19,6 +19,8 @@ const ListItems = ({
   collapsed,
   setOpen,
   onItemClick,
+  handleButtonClick,
+  handleClose,
   isSidebar = false,
   anchorEl,
   ...props
@@ -113,16 +115,15 @@ const ListItems = ({
           open={open && anchorEl !== null}
           anchorEl={anchorEl}
           onClose={() => setOpen(false)}
-          className={`${classes.listLink} ${
-            collapsed ? classes.listLinkCollapsed : ''
-          }`}
           anchorOrigin={{
-            vertical: 'top',
             horizontal: 'center',
           }}
           transformOrigin={{
-            vertical: 'top',
             horizontal: 'center',
+          }}
+          className={classes.popover}
+          classes={{
+            paper: props.paper,
           }}
         >
           <List disablePadding>
@@ -130,7 +131,6 @@ const ListItems = ({
               <ListItems
                 key={i}
                 item={nestedItem}
-                open={false}
                 collapsed={collapsed}
                 setOpen={setOpen}
                 onItemClick={onItemClick}
