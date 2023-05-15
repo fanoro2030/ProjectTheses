@@ -36,7 +36,7 @@ const ListItems = ({
     } else {
       setOpen(false);
     }
-    onItemClick(); 
+    onItemClick();
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
@@ -59,9 +59,6 @@ const ListItems = ({
           className={`${classes.listLink} ${
             collapsed ? classes.listLinkCollapsed : ''
           }`}
-          aria-describedby={hasSubRoutes && open ? 'sub-menu' : null}
-          aria-haspopup={hasSubRoutes ? true : undefined}
-          aria-expanded={hasSubRoutes ? open : undefined}
           onClick={(e) => {
             if (hasSubRoutes) {
               if (isSidebar) {
@@ -116,23 +113,24 @@ const ListItems = ({
           open={open && anchorEl !== null}
           anchorEl={anchorEl}
           onClose={() => setOpen(false)}
+          className={`${classes.listLink} ${
+            collapsed ? classes.listLinkCollapsed : ''
+          }`}
           anchorOrigin={{
             vertical: 'top',
-            horizontal: 'right',
+            horizontal: 'center',
           }}
           transformOrigin={{
             vertical: 'top',
-            horizontal: 'left',
+            horizontal: 'center',
           }}
-          id='sub-menu'
-          classes={{ paper: classes.paper }}
         >
           <List disablePadding>
             {item.subRoutes.map((nestedItem, i) => (
               <ListItems
                 key={i}
                 item={nestedItem}
-                open={false} 
+                open={false}
                 collapsed={collapsed}
                 setOpen={setOpen}
                 onItemClick={onItemClick}

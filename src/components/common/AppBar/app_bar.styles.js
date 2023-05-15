@@ -38,8 +38,7 @@ export const useStyles = makeStyles((theme, item) => ({
   horizontalList: ({ position }) => ({
     display: 'flex',
     marginLeft: position === 'right' ? 'auto' : 0,
-    backgroundColor: 'red',
-    border: `1px solid white`,
+
     width: '100%',
     '& > div': {
       marginRight: theme.spacing(11),
@@ -47,13 +46,10 @@ export const useStyles = makeStyles((theme, item) => ({
   }),
 
   root: ({ position }) => ({
-    border: `1px solid blue`,
     flexDirection: 'row',
     width: '88%',
     margin: '4px auto',
     borderRadius: '8px',
-    transition: 'all .5s',
-    overflow: 'hidden',
 
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
