@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Popover,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
@@ -19,8 +18,6 @@ const ListItems = ({
   collapsed,
   setOpen,
   onItemClick,
-  isSidebar = false,
-  anchorEl,
   ...props
 }) => {
   const { pathname } = useLocation();
@@ -28,15 +25,11 @@ const ListItems = ({
   const hasSubRoutes = Array.isArray(item.subRoutes);
   const handleClick = () => {
     if (hasSubRoutes) {
-      if (isSidebar) {
-        setOpen(!open);
-      } else {
-        setOpen(true);
-      }
+      setOpen(!open);
     } else {
       setOpen(false);
     }
-    onItemClick(); 
+    onItemClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
@@ -59,18 +52,6 @@ const ListItems = ({
           className={`${classes.listLink} ${
             collapsed ? classes.listLinkCollapsed : ''
           }`}
-          aria-describedby={hasSubRoutes && open ? 'sub-menu' : null}
-          aria-haspopup={hasSubRoutes ? true : undefined}
-          aria-expanded={hasSubRoutes ? open : undefined}
-          onClick={(e) => {
-            if (hasSubRoutes) {
-              if (isSidebar) {
-                setOpen(!open);
-              } else {
-                handleClick();
-              }
-            }
-          }}
         >
           <ListItemIcon className={classes.listIcon}>
             {(item.icon && <item.icon />) || ''}
@@ -89,8 +70,8 @@ const ListItems = ({
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
         </Box>
-      </ListItem>
-      {hasSubRoutes && isSidebar && (
+      </ListItem>{' '}
+      {hasSubRoutes && (
         <Collapse
           in={open}
           timeout='auto'
@@ -105,45 +86,83 @@ const ListItems = ({
                 collapsed={collapsed}
                 setOpen={setOpen}
                 onItemClick={onItemClick}
-                isSidebar={isSidebar}
               />
             ))}
           </List>
         </Collapse>
-      )}
-      {hasSubRoutes && !isSidebar && (
-        <Popover
-          open={open && anchorEl !== null}
-          anchorEl={anchorEl}
-          onClose={() => setOpen(false)}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          id='sub-menu'
-          classes={{ paper: classes.paper }}
-        >
-          <List disablePadding>
-            {item.subRoutes.map((nestedItem, i) => (
-              <ListItems
-                key={i}
-                item={nestedItem}
-                open={false} 
-                collapsed={collapsed}
-                setOpen={setOpen}
-                onItemClick={onItemClick}
-                isSidebar={isSidebar}
-              />
-            ))}
-          </List>
-        </Popover>
       )}
     </div>
   );
 };
 
 export default ListItems;
+///////////////
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Hidden,
+  Grid,
+  Box,
+} from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
+import { useStyles } from './app_bar.styles';
+import ListItems from '../Listitems';
+import { Content } from '../Content';
+
+const CustomAppBar = ({ data, position, ...props }) => {
+  const classes = useStyles({ position });
+
+  const [openIndex, setOpenIndex] = useState(-1);
+
+  const handleItemClick = (index) => {
+    setOpenIndex(openIndex === index ? -1 : index);
+  };
+
+  let renderData = data?.map((item, index) => {
+    const { name, url, subRoutes } = item;
+    console.log(item);
+    return (
+      <ListItems
+        key={index}
+        item={{ name, url, subRoutes }}
+        open={openIndex === index}
+        onItemClick={() => handleItemClick(index)}
+        setOpen={(value) => setOpenIndex(value ? index : -1)}
+        expanded={classes.expanded}
+        selected={classes.selected}
+        ListItem={classes.ListItem}
+        listItemText={classes.listItemText}
+      />
+    );
+  });
+
+  return (
+    <AppBar
+      position='fixed'
+      className={props.appBar}
+    >
+      <Toolbar>
+        <Hidden mdUp>
+          <IconButton
+            color='inherit'
+            aria-label='Open drawer'
+            edge='end'
+            onClick={() => props.handleDrawerToggle()}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
+        <Hidden smDown>
+          <Grid className={classes.horizontalList}>
+            <Content className={classes.root}>{renderData}</Content>
+          </Grid>
+        </Hidden>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default CustomAppBar;*/

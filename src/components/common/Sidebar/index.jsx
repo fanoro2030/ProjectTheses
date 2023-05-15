@@ -10,7 +10,7 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
   const [openIndex, setOpenIndex] = useState(-1);
 
   const handleItemClick = (index) => {
-    setOpenIndex(index);
+    setOpenIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
   let renderData = data?.map((item, index) => {
@@ -20,7 +20,8 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
         item={item}
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
-        setOpen={(value) => setOpenIndex(value ? index : -1)}
+        setOpen={handleItemClick} 
+        isSidebar={true} 
       />
     );
   });
