@@ -1,13 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-import PageLandingLayout from './layouts/PageLanding';
-import PrivateRoutes from './routes/privateRoutes';
-import PublicRoutes from './routes/publicRoutes';
+import PrivateRoutes from './routes/PrivateRoutes';
+import PublicRoutes from './routes/PublicRoutes';
 function App() {
   return (
     <Router>
-      <PublicRoutes />
+      <PrivateRoutes />
     </Router>
   );
 }

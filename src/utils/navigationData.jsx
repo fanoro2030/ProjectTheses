@@ -188,11 +188,11 @@ export const mainNavigation = [
 */
 
 export const mainNavigation = [
-  {
+  /* {
     name: 'Perfil',
     icon: HomeIcon,
     url: `/perfil`,
-  },
+  },*/
   {
     name: 'Principal',
     icon: HomeIcon,
