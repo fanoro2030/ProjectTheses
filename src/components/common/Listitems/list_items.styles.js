@@ -16,8 +16,6 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   listLink: {
-    // border: '1px solid white',
-    padding: '0 15px',
     textDecoration: 'none',
     color: 'inherit',
     transition: 'all .5s',

@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Hidden,
-  Grid,
-  Box,
-} from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
-import { Content } from '../Content';
 
 const CustomAppBar = ({ data, position, anchorEl, ...props }) => {
   const classes = useStyles({ position });
@@ -57,9 +49,7 @@ const CustomAppBar = ({ data, position, anchorEl, ...props }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Grid className={classes.horizontalList}>
-            <Content className={classes.root}>{renderData}</Content>
-          </Grid>
+          <Grid className={classes.horizontalList}>{renderData}</Grid>
         </Hidden>
       </Toolbar>
     </AppBar>

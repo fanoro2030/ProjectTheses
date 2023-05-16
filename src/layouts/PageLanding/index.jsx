@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CustomAppBar from '../../components/common/AppBar';
 import SidebarNavigation from '../../components/common/Sidebar';
 import { Container } from '../../components/common/Container';
 import { Content } from '../../components/common/Content';
-import { Hidden, Box } from '@material-ui/core';
+import { Hidden } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
 import Slider from '../../components/common/Slider';
 import Footer from '../../components/common/Footer';

@@ -1,4 +1,4 @@
-import { makeStyles, lighten } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme, item) => ({
   appBar: ({ position }) => ({
@@ -13,59 +13,48 @@ export const useStyles = makeStyles((theme, item) => ({
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
 
-  list: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'right',
-    padding: 0,
-    '& > li': {
-      marginRight: theme.spacing(10),
-    },
-
-    backgroundColor: theme.palette.background.transparent,
-    border: `1px solid red`,
-  },
-  listItem: {
-    borderBottom: `1px solid red`,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 0,
-    '& > div': {
-      marginRight: theme.spacing(70),
-    },
-  },
   horizontalList: ({ position }) => ({
     display: 'flex',
     marginLeft: position === 'right' ? 'auto' : 0,
 
-    width: '100%',
+    width: '80%',
     '& > div': {
-      marginRight: theme.spacing(11),
+      marginRight: theme.spacing(1),
     },
   }),
 
-  root: ({ position }) => ({
-    flexDirection: 'row',
-    width: '88%',
+  root: () => ({
     margin: '4px auto',
     borderRadius: '8px',
-
-    marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  expanded: { color: 'white' },
+  expanded: { color: 'white', backgroundColor: theme.palette.secondary },
   selected: {
     color: 'y#ece8dd',
-    backgroundColor: theme.palette.primary.secondary,
+    backgroundColor: theme.palette.secondary,
   },
   listItem: {
     paddingTop: 1,
-    paddingBottom: 1,
+    paddingButtom: 1,
+
+    display: 'flex',
+
+    TextAlign: 'center',
     '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary,
+    },
+  },
+  listLink: {
+    display: 'flex',
+    textDecoration: 'none',
+    color: 'ired',
+    transition: 'all .5s',
+
+    '&:hover': {
+      backgroundColor: theme.palette.primary,
     },
   },
   listItemText: {
     fontSize: 16,
+    textAlign: 'center',
   },
 }));

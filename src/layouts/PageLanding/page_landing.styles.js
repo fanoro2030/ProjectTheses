@@ -1,13 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { primaryColor, tertiaryColor } from '../../themesdsd/constants/colors';
-// Estilos para PageLayout
-const drawerWidth = 260;
+import { primaryColor } from '../../themesdsd/constants/colors';
+
 export const useStylesPageLayout = makeStyles((theme) => ({
   page_layout: {
     flexDirection: 'column',
     paddingTop: theme.spacing(3),
     marginTop: '11rem',
-    width: '100%', //important draft for content
+    width: '100%',
     justifyContent: 'space-between',
     backgroundColor: '#9fa4a0',
   },

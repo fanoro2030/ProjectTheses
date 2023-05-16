@@ -42,7 +42,7 @@ const ListItems = ({
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
-  const { root, expanded, selected, listItem, listItemText } = props;
+  const { root, expanded, selected, listItem, listLink, listItemText } = props;
   return (
     <div
       className={`${classes.root} ${root}  ${
@@ -58,7 +58,7 @@ const ListItems = ({
         <Box
           component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
-          className={`${classes.listLink} ${
+          className={`${classes.listLink} ${listLink}${
             collapsed ? classes.listLinkCollapsed : ''
           }`}
           onClick={(e) => {
