@@ -31,11 +31,8 @@ const CustomAppBar = ({ data, position, ...props }) => {
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
-        root={classes.root}
-        expanded={classes.expanded}
-        selected={classes.selected}
-        ListItem={classes.ListItem}
-        listItemText={classes.listItemText}
+  
+        {...classes}
       />
     );
   });

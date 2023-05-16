@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -19,16 +19,15 @@ const ListItems = ({
   collapsed,
   setOpen,
   onItemClick,
-  handleButtonClick,
-  handleClose,
   isSidebar = false,
-  anchorEl,
+
   ...props
 }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   const hasSubRoutes = Array.isArray(item.subRoutes);
-  const handleClick = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
     if (hasSubRoutes) {
       if (isSidebar) {
         setOpen(!open);
@@ -39,6 +38,7 @@ const ListItems = ({
       setOpen(false);
     }
     onItemClick();
+    setAnchorEl(event.currentTarget);
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
@@ -66,7 +66,7 @@ const ListItems = ({
               if (isSidebar) {
                 setOpen(!open);
               } else {
-                handleClick();
+                handleClick(e);
               }
             }
           }}
@@ -116,15 +116,14 @@ const ListItems = ({
           anchorEl={anchorEl}
           onClose={() => setOpen(false)}
           anchorOrigin={{
+            vertical: 'buttom',
             horizontal: 'center',
           }}
           transformOrigin={{
+            vertical: 'buttom',
             horizontal: 'center',
           }}
           className={classes.popover}
-          classes={{
-            paper: props.paper,
-          }}
         >
           <List disablePadding>
             {item.subRoutes.map((nestedItem, i) => (

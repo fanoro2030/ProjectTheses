@@ -53,17 +53,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   popover: {
     justifyContent: 'center',
-
-    marginTop: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing(2),
-    },
-    [theme.breakpoints.up('md')]: {
-      marginTop: theme.spacing(6),
-    },
-  },
-  paper: {
-    padding: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(5),
+    paddingTop: theme.spacing(2),
   },
 }));
