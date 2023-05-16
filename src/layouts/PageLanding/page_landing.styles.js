@@ -5,7 +5,7 @@ export const useStylesPageLayout = makeStyles((theme) => ({
   page_layout: {
     flexDirection: 'column',
     paddingTop: theme.spacing(3),
-    marginTop: '11rem',
+    marginTop: '9.5rem',
     width: '100%',
     justifyContent: 'space-between',
     backgroundColor: '#9fa4a0',

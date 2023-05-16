@@ -13,13 +13,13 @@ const PageLandingLayout = ({ navigationHome, children }) => {
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
     <Container>
-      <Slider />
       <CustomAppBar
         position='right'
         handleDrawerToggle={handleDrawerToggle}
         appBar={classes.appBar}
         data={navigationHome}
-      />
+      />{' '}
+      <Slider />
       <Hidden xlDown>
         <SidebarNavigation
           variant='permanent'

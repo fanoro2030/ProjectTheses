@@ -4,7 +4,7 @@ import background from '../../../assets/fonts/images/logo_slider.png';
 export const useStyles = makeStyles((theme) => ({
   content_slider: {
     position: 'fixed',
-    marginTop: theme.spacing(10.5),
+    marginTop: theme.spacing(8),
     backgroundImage: `url(${background})`,
   },
 
