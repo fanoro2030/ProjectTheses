@@ -71,9 +71,12 @@ const ListItems = ({
             }
           }}
         >
-          <ListItemIcon className={classes.listIcon}>
-            {(item.icon && <item.icon />) || ''}
-          </ListItemIcon>
+          {!props.hideIcon && (
+            <ListItemIcon className={classes.listIcon}>
+              {(item.icon && <item.icon />) || ''}
+            </ListItemIcon>
+          )}
+
           <ListItemText
             classes={{
               primary: collapsed ? classes.listItemText : listItemText || '',
@@ -81,7 +84,8 @@ const ListItems = ({
           >
             {item.name}
           </ListItemText>
-          {hasSubRoutes &&
+          {!props.hideExpandIcon &&
+            hasSubRoutes &&
             (open ? (
               <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (

@@ -12,7 +12,7 @@ import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
 import { Content } from '../Content';
 
-const CustomAppBar = ({ data, position, ...props }) => {
+const CustomAppBar = ({ data, position, anchorEl, ...props }) => {
   const classes = useStyles({ position });
 
   const [openIndex, setOpenIndex] = useState(-1);
@@ -31,7 +31,9 @@ const CustomAppBar = ({ data, position, ...props }) => {
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
-  
+        anchorEl={anchorEl}
+        hideIcon={true}
+        hideExpandIcon={true}
         {...classes}
       />
     );

@@ -3,10 +3,14 @@ import Drawer from '@material-ui/core/Drawer';
 import { List } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import ListItems from '../Listitems';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import { useStyles } from './sidebar_navigation.styles';
 
 const SidebarNavigation = ({ data, collapsed, ...props }) => {
   const classes = useStyles();
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const hideExpandIcon = isMobile ? true : props.hideExpandIcon;
   const [openIndex, setOpenIndex] = useState(-1);
 
   const handleItemClick = (index) => {
@@ -20,8 +24,9 @@ const SidebarNavigation = ({ data, collapsed, ...props }) => {
         item={item}
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
-        setOpen={handleItemClick} 
-        isSidebar={true} 
+        setOpen={handleItemClick}
+        isSidebar={true}
+        hideExpandIcon={hideExpandIcon}
       />
     );
   });

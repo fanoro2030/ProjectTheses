@@ -32,6 +32,7 @@ const DashboardLayout = ({ navigationMain, children }) => {
           anchor='left'
           drawerPaper={classes.drawerPaper}
           data={navigationMain}
+          hideExpandIcon={true}
         />
       </Hidden>
 

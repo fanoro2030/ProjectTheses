@@ -26,6 +26,7 @@ const PageLandingLayout = ({ navigationHome, children }) => {
           mobileOpen={false}
           drawerPaper={classes.drawerPaper}
           data={navigationHome}
+          hideExpandIcon={true}
         />
       </Hidden>
       <Hidden xlUp>
@@ -36,6 +37,7 @@ const PageLandingLayout = ({ navigationHome, children }) => {
           anchor='right'
           drawerPaper={classes.drawerPaper}
           data={navigationHome}
+          hideExpandIcon={true}
         />
       </Hidden>
       <Content className={classes.page_layout}>
