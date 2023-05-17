@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Route
-        path='/'
+        path='/presentation'
         exact
         render={() => (isAuthenticated ? <PrivateRoutes /> : <PublicRoutes />)}
       />
