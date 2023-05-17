@@ -6,6 +6,7 @@ import Controls from '../../../../components/controls/Controls';
 import { useStyles } from './signin.styles';
 import { useDispatch } from 'react-redux';
 import { authAsync } from '../../../../actions/auth';
+import { Content } from '../../../../components/common/Content';
 const SignIn = () => {
   const classes = useStyles();
   //login state
@@ -20,7 +21,7 @@ const SignIn = () => {
     <Box>
       <PageHeader title='Singinn' />
       <PageBody>
-        <div className={classes.content_body}>
+        <Content className={classes.content_body}>
           <input
             type='email'
             placeholder='Email'
@@ -41,7 +42,7 @@ const SignIn = () => {
             hover='#D4AC0D'
             onClick={handleLogin}
           />
-        </div>
+        </Content>
       </PageBody>
     </Box>
   );
