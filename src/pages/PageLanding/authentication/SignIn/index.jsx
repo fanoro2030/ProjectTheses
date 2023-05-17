@@ -21,18 +21,21 @@ const SignIn = () => {
     {
       email: '',
       password: '',
-    }
-    // 'auth' // Establece currentForm como 'auth'
+    },
+    'auth' // Establece currentForm como 'auth'
   );
+
   const handleSubmit = (e) => {
+    console.log(values);
     e.preventDefault();
     const validationErrors = validate(values);
 
     if (validationErrors) {
+      console.log(validationErrors);
       return;
     }
 
-    dispatch(authAsync(values.email, values.password));
+    dispatch(authAsync(values.email, values.password, resetForm));
   };
 
   useEffect(() => {
