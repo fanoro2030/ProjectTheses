@@ -1,3 +1,5 @@
+import { types } from '../types/types';
+import { enpoints } from '../types/endPoints';
 export const authAsync = (email, password) => {
   return (dispatch) => {
     fetch(enpoints.login.url, {
