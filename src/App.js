@@ -5,7 +5,8 @@ import PublicRoutes from './routes/PublicRoutes';
 function App() {
   return (
     <Router>
-      <PrivateRoutes />
+      <PublicRoutes />
+      <PrivateRoutes />{' '}
     </Router>
   );
 }
