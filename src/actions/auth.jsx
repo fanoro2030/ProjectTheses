@@ -21,7 +21,7 @@ export const authAsync = (email, password) => {
           dispatch(auth(data.serverResponse));
           return;
         }
-        dispatch(error('Credenciales incorrectas'));
+        dispatch(error(data.message));
       });
   };
 };

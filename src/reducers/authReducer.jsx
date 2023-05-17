@@ -3,24 +3,27 @@ const initialState = {
   isAuthenticated: false,
   error: null,
 };
-
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = {}, action) => {
   switch (action.type) {
-    case types.authLogin:
-      localStorage.setItem('token', action.payload);
+    case types.authLogin: {
+      const token = action.payload;
       return {
         ...state,
+        token,
         isAuthenticated: true,
         error: null,
       };
-    case types.authError:
-      return {
-        ...state,
-        error: action.payload,
-      };
-    default:
+    }
+    case types.authLogout: {
+      return {};
+    }
+
+    case types.authError: {
+      return { ...state, msnerror: action.payload };
+    }
+    default: {
       return state;
+    }
   }
 };
-
 export default authReducer;
