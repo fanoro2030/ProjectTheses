@@ -39,7 +39,7 @@ const SignIn = () => {
             type='submit'
             color='orange'
             hover='#D4AC0D'
-            href='/major'
+            onClick={handleLogin}
           />
         </div>
       </PageBody>
