@@ -29,10 +29,10 @@ export const authAsync = (email, password) => {
   };
 };
 
-export const auth = (token) => {
+export const auth = (accessToken) => {
   return {
     type: types.authLogin,
-    payload: token,
+    payload: accessToken,
   };
 };
 
