@@ -8,7 +8,7 @@ import Controls from '../../../../components/controls/Controls';
 import { useStyles } from './signin.styles';
 import { useForm, Form } from '../../../../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { authAsync, auth } from '../../../../actions/auth';
+import { authAsync, auth, authError } from '../../../../actions/auth';
 import { useSelector } from 'react-redux';
 
 const SignIn = () => {
@@ -18,30 +18,27 @@ const SignIn = () => {
   const { auth: authRename } = useSelector((state) => state);
   const { token, error } = authRename;
 
-  const { values, errors, handleInputChange, validate, resetForm } = useForm(
-    {
-      email: 'fanor@gmail.com',
-      password: '',
-    },
-    'auth' // Establece currentForm como 'auth'
-  );
+  const { values, errors, handleInputChange, validate, resetForm } = useForm({
+    email: 'fanor@gmail.com',
+    password: '',
+  });
   const handlerSubmit = (e) => {
+    console.log(values);
     e.preventDefault();
     const errors = validate(values);
+    console.log(errors);
     if (!errors) {
       dispatch(authAsync(values.email, values.password, resetForm));
+      dispatch(authError(error.message || 'Credenciales inválidas'));
     }
   };
-
   useEffect(() => {
     if (token) {
-      const token = localStorage.getItem('token');
-      if (token != null) {
-        dispatch(auth(token));
-      }
+      // Redireccionar al usuario después de iniciar sesión
       // Puedes reemplazar '/dashboard' con la ruta deseada
+      return <Redirect to='/major' />;
     }
-  }, [token, dispatch]);
+  }, [token]);
 
   return (
     <>
@@ -64,10 +61,8 @@ const SignIn = () => {
                 value={values.password}
                 onChange={handleInputChange}
               />
-              {errors.password && (
-                <span className='error'>{errors.password}</span>
-              )}
-              {error && <span className='error'>{error}</span>}
+              {error && <span className='error'>{error.payload}</span>}
+
               <Controls.Button
                 text='Iniciar Sesión'
                 type='submit'
