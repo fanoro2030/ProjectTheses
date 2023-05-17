@@ -26,10 +26,13 @@ const SignIn = () => {
     'auth' // Establece currentForm como 'auth'
   );
   const handlerSubmit = (e) => {
+    console.log(values);
     e.preventDefault();
     const errors = validate(values);
+    console.log(errors);
     if (!errors) {
       dispatch(authAsync(values.email, values.password, resetForm));
+      console.log(values);
     }
   };
 

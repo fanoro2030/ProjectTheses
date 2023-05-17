@@ -22,6 +22,10 @@ export const authAsync = (email, password) => {
           return;
         }
         dispatch(error(data.message));
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Manejar el error aquí, mostrar un mensaje de error o realizar alguna acción apropiada
       });
   };
 };
