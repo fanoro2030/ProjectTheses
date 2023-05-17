@@ -19,7 +19,7 @@ const authReducer = (state = {}, action) => {
     }
 
     case types.authError: {
-      return { ...state, msnerror: action.payload };
+      return { ...state, rror: action.payload };
     }
     default: {
       return state;

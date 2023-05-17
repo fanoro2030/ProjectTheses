@@ -16,16 +16,15 @@ export const authAsync = (email, password) => {
         return response.json();
       })
       .then((data) => {
-        if (data) {
+        if (data && data.serverResponse) {
           localStorage.setItem('token', data.serverResponse);
           dispatch(auth(data.serverResponse));
-          return;
+        } else {
+          dispatch(error(data.message || 'Credenciales incorrectas'));
         }
-        dispatch(error(data.message));
       })
       .catch((error) => {
-        console.error('Error:', error);
-        // Manejar el error aquí, mostrar un mensaje de error o realizar alguna acción apropiada
+        dispatch(error('Ocurrió un error durante el inicio de sesión'));
       });
   };
 };
@@ -37,9 +36,9 @@ export const auth = (token) => {
   };
 };
 
-export const error = (msn) => {
+export const error = (message) => {
   return {
     type: types.authError,
-    payload: msn,
+    payload: message,
   };
 };
