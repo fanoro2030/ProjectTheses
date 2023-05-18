@@ -1,24 +1,22 @@
 import { types } from '../types/types';
 import { enpoints } from '../types/endPoints';
-import { credentialsSchema } from '../validations';
 
-export const authAsync = (email, password) => {
+export const authAsync = (values) => {
   return async (dispatch) => {
     try {
-      await credentialsSchema.validate({ email, password });
-
       const response = await fetch(enpoints.login.url, {
         method: enpoints.login.method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(values),
       });
 
       if (response.status === 401) {
         const error = await response.json();
         dispatch(authError(error.message));
       } else if (response.ok) {
+        console.log(response);
         const data = await response.json();
 
         localStorage.setItem('token', data.accessToken);
@@ -27,13 +25,8 @@ export const authAsync = (email, password) => {
         dispatch(authError('Error al iniciar sesión'));
       }
     } catch (error) {
-      if (error.name === 'ValidationError') {
-        const errorMessage = error.errors[0];
-        dispatch(authError(errorMessage));
-      } else {
-        console.error(error);
-        dispatch(authError('Error al iniciar sesión'));
-      }
+      console.error(error);
+      dispatch(authError('Error al iniciar sesión'));
     }
   };
 };

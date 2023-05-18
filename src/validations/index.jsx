@@ -1,44 +1,10 @@
-import { validateEmail, validatePassword } from './authValidations';
-import { validateName, validateApellido } from './signupValidations';
+import * as yup from 'yup';
 
-export const validations = {
-  auth: (fieldValues) => {
-    let errors = {};
-
-    const emailError = validateEmail(fieldValues.email);
-    if (emailError) {
-      errors.email = emailError;
-    }
-
-    const passwordError = validatePassword(fieldValues.password);
-    if (passwordError) {
-      errors.password = passwordError;
-    }
-
-    return errors;
-  },
-
-  register: (fieldValues) => {
-    let errors = {};
-    const nameError = validateName(fieldValues.name);
-    if (nameError) {
-      errors.name = nameError;
-    }
-    const apellidoError = validateApellido(fieldValues.apellido);
-    if (apellidoError) {
-      errors.apellido = apellidoError;
-    }
-
-    const emailError = validateEmail(fieldValues.email);
-    if (emailError) {
-      errors.email = emailError;
-    }
-
-    const passwordError = validatePassword(fieldValues.password);
-    if (passwordError) {
-      errors.password = passwordError;
-    }
-
-    return errors;
-  },
-};
+export const credentialsSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Correo electrónico no válido')
+    .matches(/@gmail\.com$/, 'El correo electrónico debe ser una cuenta de Gmail')
+    .required('El email es obligatorio'),
+  password: yup.string().required('La contraseña es obligatoria'),
+});

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useStyles } from './form.styles';
-
+import { validations } from '../../validations';
 export const useForm = (initialValues, currentForm) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
@@ -18,11 +18,22 @@ export const useForm = (initialValues, currentForm) => {
     setErrors({});
   };
 
+  const validate = (fieldValues) => {
+    const validationFunc = validations[currentForm];
+    if (validationFunc) {
+      const errors = validationFunc(fieldValues);
+      setErrors(errors);
+      return errors;
+    }
+    return undefined;
+  };
+
   return {
     values,
     setValues,
     errors,
     handleInputChange,
+    validate,
     resetForm,
   };
 };

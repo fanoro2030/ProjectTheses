@@ -5,7 +5,11 @@ export const useStyles = makeStyles((theme) => ({
     width: '50%',
     textAlign: 'center',
     flexDirection: 'column',
-    backgroundColor: 'red',
+
     margin: theme.spacing(2),
+  },
+  error: {
+    color: 'red',
+    onfocus: 'this.style.color = "red";',
   },
 }));

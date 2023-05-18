@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PageBody from '../../../../components/common/PageBody';
 import PageHeader from '../../../../components/common/PageHeader';
 import { Content } from '../../../../components/common/Content';
@@ -8,71 +8,56 @@ import Controls from '../../../../components/controls/Controls';
 import { useStyles } from './signin.styles';
 import { useForm, Form } from '../../../../hooks/useForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { authAsync, authError } from '../../../../actions/auth';
+import { authAsync } from '../../../../actions/auth';
+
+const initialFValues = {
+  email: '',
+  password: '',
+};
 
 const SignIn = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const { auth: authState } = useSelector((state) => state);
-  const { token, error } = authState;
-
-  const { values, errors, handleInputChange, validate, resetForm } = useForm(
-    {
-      email: '',
-      password: '',
-    },
-    'auth' // Establece currentForm como 'auth'
-  );
-
-  const handleSubmit = (e) => {
-    console.log(values);
-    e.preventDefault();
-    const validationErrors = validate(values);
-
-    if (validationErrors) {
-      console.log(validationErrors);
-      return;
-    }
-
-    dispatch(authAsync(values.email, values.password, resetForm));
-  };
+  const history = useHistory();
+  const { auth } = useSelector((state) => state);
+  const { token, error } = auth;
+  const { handleInputChange, values } = useForm(initialFValues);
 
   useEffect(() => {
     if (token) {
-      // Redireccionar a la página deseada después de iniciar sesión
-      // Por ejemplo:
-      window.location.href = '/major';
+      history.push('/major');
     }
-  }, [token]);
+  }, [token, history]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(authAsync(values.email, values.password));
+  };
 
   return (
     <Box>
-      <PageHeader title='Signin' />
-
+      <PageHeader title='SignIn' />
       <PageBody>
         <Content className={classes.content_body}>
           <Form onSubmit={handleSubmit}>
-            <input
-              type='email'
+            {error && <span className={classes.error}>{error}</span>}
+
+            <Controls.Input
               name='email'
+              label='Email'
+              type='email'
               value={values.email}
               onChange={handleInputChange}
             />
-            {errors.email && <span className='error'>{errors.email}</span>}
 
-            <input
+            <Controls.Input
               type='password'
               name='password'
+              label='Password'
               value={values.password}
               onChange={handleInputChange}
             />
-            {errors.password && (
-              <span className='error'>{errors.password}</span>
-            )}
-
-            {error && <span className='error'>{error}</span>}
-
             <Controls.Button
               text='Iniciar Sesión'
               type='submit'
