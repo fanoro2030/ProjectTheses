@@ -13,9 +13,10 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         token: action.payload,
-
         error: null,
       };
+    case types.authLogout:
+      return initialState; // Devuelve el estado inicial de autenticación
     case types.authError:
       return {
         ...state,

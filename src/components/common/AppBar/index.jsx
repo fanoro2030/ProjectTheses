@@ -4,6 +4,9 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
 import Controls from '../../controls/Controls';
+import { useDispatch } from 'react-redux';
+import { authLogoutAsync } from '../../../actions/auth';
+
 const CustomAppBar = ({
   data,
   position,
@@ -36,6 +39,11 @@ const CustomAppBar = ({
       />
     );
   });
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(authLogoutAsync());
+  };
 
   return (
     <AppBar
@@ -60,11 +68,11 @@ const CustomAppBar = ({
         {isPrivateRoute && (
           <Controls.Button
             text='Cerrar Sesión'
-            type='submit'
             href='/presentation'
             variant='outlined'
             color='orange'
             hover='#bea024'
+            onClick={handleLogout}
           />
         )}
       </Toolbar>

@@ -15,16 +15,14 @@ export const authAsync = (email, password) => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.status === 401) {
-        const error = await response.json();
-        dispatch(authError(error.message));
-      } else if (response.ok) {
+      if (response.ok) {
         const data = await response.json();
 
         localStorage.setItem('token', data.accessToken);
         dispatch(auth(data.accessToken));
       } else {
-        dispatch(authError('Error al iniciar sesión'));
+        const error = await response.json();
+        dispatch(authError(error.message));
       }
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -38,10 +36,24 @@ export const authAsync = (email, password) => {
   };
 };
 
+export const authLogoutAsync = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+  };
+};
+
 export const auth = (accessToken) => {
   return {
     type: types.authLogin,
     payload: accessToken,
+  };
+};
+
+export const logout = () => {
+  return {
+    type: types.authLogout,
+    payload: null,
   };
 };
 
