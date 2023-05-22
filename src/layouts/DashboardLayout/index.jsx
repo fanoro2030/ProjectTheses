@@ -15,6 +15,7 @@ const DashboardLayout = ({ navigationMain, children }) => {
         position='left'
         handleDrawerToggle={handleDrawerToggle}
         appBar={classes.appBar}
+        isPrivateRoute={true}
       />
       <Hidden smDown>
         <SidebarNavigation

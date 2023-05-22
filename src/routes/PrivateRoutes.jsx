@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import DashboardLayout from '../layouts/DashboardLayout';
 import { mainNavigation } from '../utils/navigationData';

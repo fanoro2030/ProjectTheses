@@ -11,6 +11,7 @@ const PublicRoutes = () => {
   return (
     <CustomThemeProvider>
       <CssBaseline />
+
       <RoutesWithLayout
         layout={PageLandingLayout}
         routes={homeRoutes}

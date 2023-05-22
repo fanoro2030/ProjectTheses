@@ -3,8 +3,14 @@ import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
-
-const CustomAppBar = ({ data, position, anchorEl, ...props }) => {
+import Controls from '../../controls/Controls';
+const CustomAppBar = ({
+  data,
+  position,
+  anchorEl,
+  isPrivateRoute,
+  ...props
+}) => {
   const classes = useStyles({ position });
 
   const [openIndex, setOpenIndex] = useState(-1);
@@ -51,6 +57,16 @@ const CustomAppBar = ({ data, position, anchorEl, ...props }) => {
         <Hidden smDown>
           <Grid className={classes.horizontalList}>{renderData}</Grid>
         </Hidden>
+        {isPrivateRoute && (
+          <Controls.Button
+            text='Cerrar Sesión'
+            type='submit'
+            href='/presentation'
+            variant='outlined'
+            color='orange'
+            hover='#bea024'
+          />
+        )}
       </Toolbar>
     </AppBar>
   );
