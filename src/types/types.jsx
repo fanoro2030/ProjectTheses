@@ -1,5 +1,5 @@
 export const types = {
   authLogin: 'auth/login',
-  //   authLogout: "auth/logout",
+  authLogout: 'auth/logout',
   authError: 'auth/error',
 };

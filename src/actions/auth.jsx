@@ -20,6 +20,7 @@ export const authAsync = (email, password) => {
 
         localStorage.setItem('token', data.accessToken);
         dispatch(auth(data.accessToken));
+        console.log(data);
       } else {
         const error = await response.json();
         dispatch(authError(error.message));
@@ -37,12 +38,37 @@ export const authAsync = (email, password) => {
 };
 
 export const authLogoutAsync = () => {
-  return (dispatch) => {
-    localStorage.removeItem('token');
-    dispatch(logout());
+  return async (dispatch) => {
+    try {
+      // Obtener el token de autenticación del almacenamiento local
+      const token = localStorage.getItem('token');
+
+      // Llamar a la API para cerrar la sesión
+      const response = await fetch(enpoints.logout.url, {
+        method: enpoints.logout.method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: ` ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.removeItem('token');
+
+        dispatch(logout());
+        console.log(data.message);
+      } else {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+
+      console.log('Error al cerrar sesión');
+    }
   };
 };
-
 export const auth = (accessToken) => {
   return {
     type: types.authLogin,

@@ -23,12 +23,6 @@ const SignIn = () => {
   const { token, error } = auth;
   const { handleInputChange, values } = useForm(initialFValues);
 
-  useEffect(() => {
-    if (token) {
-      history.push('/major');
-    }
-  }, [token, history]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
 import Controls from '../../controls/Controls';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authLogoutAsync } from '../../../actions/auth';
 
 const CustomAppBar = ({
@@ -39,17 +39,23 @@ const CustomAppBar = ({
       />
     );
   });
-  const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
+  const { logout } = auth;
+
+  useEffect(() => {
+    if (logout) {
+      console.log('Sesión cerrada exitosamente');
+    }
+  }, [logout]);
+
+  const handlerLogOut = () => {
     dispatch(authLogoutAsync());
   };
 
   return (
-    <AppBar
-      position='fixed'
-      className={props.appBar}
-    >
+    <AppBar position='fixed' className={props.appBar}>
       <Toolbar>
         <Hidden mdUp>
           <IconButton
@@ -68,11 +74,10 @@ const CustomAppBar = ({
         {isPrivateRoute && (
           <Controls.Button
             text='Cerrar Sesión'
-            href='/presentation'
             variant='outlined'
             color='orange'
             hover='#bea024'
-            onClick={handleLogout}
+            onClick={handlerLogOut}
           />
         )}
       </Toolbar>
