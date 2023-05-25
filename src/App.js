@@ -1,7 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import Routes from './routes';
+import RoutesFanor from './routes';
 
 import CustomThemeProvider from './theme/CustomThemeProvider';
 import { CssBaseline } from '@material-ui/core';
@@ -12,9 +12,7 @@ function App() {
       <CssBaseline />
 
       <Router>
-        <Switch>
-          <Routes />
-        </Switch>
+        <RoutesFanor />
       </Router>
     </CustomThemeProvider>
   );

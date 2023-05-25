@@ -6,7 +6,7 @@ import ListItems from '../Listitems';
 import Controls from '../../controls/Controls';
 import { useDispatch, useSelector } from 'react-redux';
 import { authLogoutAsync } from '../../../actions/auth';
-
+import { useHistory } from 'react-router-dom';
 const CustomAppBar = ({
   data,
   position,
@@ -41,6 +41,7 @@ const CustomAppBar = ({
   });
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const { auth } = useSelector((state) => state);
   const { logout } = auth;
 
@@ -52,10 +53,14 @@ const CustomAppBar = ({
 
   const handlerLogOut = () => {
     dispatch(authLogoutAsync());
+    history.push('/presentation');
   };
 
   return (
-    <AppBar position='fixed' className={props.appBar}>
+    <AppBar
+      position='fixed'
+      className={props.appBar}
+    >
       <Toolbar>
         <Hidden mdUp>
           <IconButton
