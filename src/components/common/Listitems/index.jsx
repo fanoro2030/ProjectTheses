@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -7,65 +7,93 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Popover,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import clsx from 'clsx';
+
 import { useStyles } from './list_items.styles';
 
-const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
+const ListItems = ({
+  item,
+  open,
+  collapsed,
+  setOpen,
+  onItemClick,
+  isSidebar = false,
+
+  ...props
+}) => {
   const { pathname } = useLocation();
   const classes = useStyles();
   const hasSubRoutes = Array.isArray(item.subRoutes);
-  const handleClick = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
     if (hasSubRoutes) {
-      setOpen(!open);
+      if (isSidebar) {
+        setOpen(!open);
+      } else {
+        setOpen(true);
+      }
     } else {
       setOpen(false);
     }
-    onItemClick(); // Llamar a la función onClick del componente padre para actualizar el estado del botón padre
+    onItemClick();
+    setAnchorEl(event.currentTarget);
   };
 
   const isSelected = !hasSubRoutes && pathname === item.url;
-
+  const { root, expanded, selected, listItem, listLink, listItemText } = props;
   return (
     <div
-      className={clsx(
-        classes.root,
-        hasSubRoutes && open && classes.expanded,
-        isSelected && classes.selected
-      )}
+      className={`${classes.root} ${root}  ${
+        hasSubRoutes && open ? classes.expanded : expanded || ''
+      } ${isSelected ? classes.selected : selected || ''}`}
     >
       <ListItem
         button
-        className={clsx(classes.listItem)}
+        className={`${classes.listItem} ${listItem}`}
         onClick={handleClick}
         disableGutters
       >
         <Box
           component={!hasSubRoutes ? Link : 'div'}
           to={`${item.url}`}
-          className={clsx(
-            classes.listLink,
-            collapsed && classes.listLinkCollapsed
-          )}
+          className={`${classes.listLink} ${listLink}${
+            collapsed ? classes.listLinkCollapsed : ''
+          }`}
+          onClick={(e) => {
+            if (hasSubRoutes) {
+              if (isSidebar) {
+                setOpen(!open);
+              } else {
+                handleClick(e);
+              }
+            }
+          }}
         >
-          <ListItemIcon className={classes.listIcon}>
-            {(item.icon && <item.icon />) || ''}
-          </ListItemIcon>
+          {!props.hideIcon && (
+            <ListItemIcon className={classes.listIcon}>
+              {(item.icon && <item.icon />) || ''}
+            </ListItemIcon>
+          )}
+
           <ListItemText
-            classes={{ primary: collapsed ? classes.listItemText : '' }}
+            classes={{
+              primary: collapsed ? classes.listItemText : listItemText || '',
+            }}
           >
             {item.name}
           </ListItemText>
-          {hasSubRoutes &&
+          {!props.hideExpandIcon &&
+            hasSubRoutes &&
             (open ? (
               <ExpandLess fontSize={collapsed ? 'inherit' : 'default'} />
             ) : (
               <ExpandMore fontSize={collapsed ? 'inherit' : 'default'} />
             ))}
         </Box>
-      </ListItem>{' '}
-      {hasSubRoutes && (
+      </ListItem>
+      {hasSubRoutes && isSidebar && (
         <Collapse
           in={open}
           timeout='auto'
@@ -80,10 +108,40 @@ const ListItems = ({ item, open, collapsed, setOpen, onItemClick }) => {
                 collapsed={collapsed}
                 setOpen={setOpen}
                 onItemClick={onItemClick}
+                isSidebar={isSidebar}
               />
             ))}
           </List>
         </Collapse>
+      )}
+      {hasSubRoutes && !isSidebar && (
+        <Popover
+          open={open && anchorEl !== null}
+          anchorEl={anchorEl}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{
+            vertical: 'buttom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'buttom',
+            horizontal: 'center',
+          }}
+          className={classes.popover}
+        >
+          <List disablePadding>
+            {item.subRoutes.map((nestedItem, i) => (
+              <ListItems
+                key={i}
+                item={nestedItem}
+                collapsed={collapsed}
+                setOpen={setOpen}
+                onItemClick={onItemClick}
+                isSidebar={isSidebar}
+              />
+            ))}
+          </List>
+        </Popover>
       )}
     </div>
   );

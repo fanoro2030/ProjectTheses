@@ -10,17 +10,14 @@ import {
 export const homeNavigation = [
   {
     name: 'Presentación',
-
     url: '/presentation',
   },
   {
     name: 'Sobre Nosotros',
-
     url: '/about-us',
   },
   {
     name: 'Nuestras Semillas',
-
     url: '/seeds-ours',
 
     subRoutes: [
@@ -36,30 +33,25 @@ export const homeNavigation = [
   },
   {
     name: 'Nuestros Servicios',
-
     url: '/nuestros-servicios',
 
     subRoutes: [
       {
         name: 'Asesoramiento',
         url: '/asesoramiento',
-        isPublic: true,
       },
       {
         name: 'Limpieza y Selección',
         url: '/limpieza-y-seleccion',
-        isPublic: true,
       },
     ],
   },
   {
     name: 'Contacto',
-
     url: '/contacto',
   },
   {
     name: 'Login',
-
     url: '/login',
   },
 ];
@@ -196,6 +188,11 @@ export const mainNavigation = [
 */
 
 export const mainNavigation = [
+  /* {
+    name: 'Perfil',
+    icon: HomeIcon,
+    url: `/perfil`,
+  },*/
   {
     name: 'Principal',
     icon: HomeIcon,

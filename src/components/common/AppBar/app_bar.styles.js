@@ -12,34 +12,49 @@ export const useStyles = makeStyles((theme, item) => ({
     marginRight: position === 'left' ? theme.spacing(2) : 0,
     marginLeft: position === 'right' ? 'auto' : 0,
   }),
-  list: {
+
+  horizontalList: ({ position }) => ({
     display: 'flex',
+    marginLeft: position === 'right' ? 'auto' : 0,
 
-    flexDirection: 'row',
-    alignItems: 'right',
-    padding: 0,
-    '& > li': {
-      marginRight: theme.spacing(10),
+    width: '80%',
+    '& > div': {
+      marginRight: theme.spacing(1),
     },
+  }),
 
-    backgroundColor: theme.palette.background.transparent,
-    border: `1px solid red`,
+  root: () => ({
+    margin: '4px auto',
+    borderRadius: '8px',
+  }),
+  expanded: { color: 'white', backgroundColor: theme.palette.secondary },
+  selected: {
+    color: 'y#ece8dd',
+    backgroundColor: theme.palette.secondary,
   },
   listItem: {
-    borderBottom: `1px solid red`,
+    paddingTop: 1,
+    paddingButtom: 1,
+
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 0,
-    '& > div': {
-      marginRight: theme.spacing(20),
+
+    TextAlign: 'center',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary,
     },
   },
-  horizontalList: {
+  listLink: {
     display: 'flex',
+    textDecoration: 'none',
+    color: 'ired',
+    transition: 'all .5s',
 
-    flexDirection: 'row',
-
-    alignItems: 'center',
+    '&:hover': {
+      backgroundColor: theme.palette.primary,
+    },
+  },
+  listItemText: {
+    fontSize: 16,
+    textAlign: 'center',
   },
 }));

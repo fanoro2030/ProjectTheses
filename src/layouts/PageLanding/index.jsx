@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CustomAppBar from '../../components/common/AppBar';
 import SidebarNavigation from '../../components/common/Sidebar';
 import { Container } from '../../components/common/Container';
 import { Content } from '../../components/common/Content';
-import { Hidden, Box } from '@material-ui/core';
+import { Hidden } from '@material-ui/core';
 import useDrawer from '../../hooks/useDrawer';
 import Slider from '../../components/common/Slider';
 import Footer from '../../components/common/Footer';
@@ -13,19 +13,20 @@ const PageLandingLayout = ({ navigationHome, children }) => {
   const [mobileOpen, handleDrawerToggle] = useDrawer();
   return (
     <Container>
-      <Slider />
       <CustomAppBar
         position='right'
         handleDrawerToggle={handleDrawerToggle}
         appBar={classes.appBar}
         data={navigationHome}
-      />
+      />{' '}
+      <Slider />
       <Hidden xlDown>
         <SidebarNavigation
           variant='permanent'
           mobileOpen={false}
           drawerPaper={classes.drawerPaper}
           data={navigationHome}
+          hideExpandIcon={true}
         />
       </Hidden>
       <Hidden xlUp>
@@ -36,6 +37,7 @@ const PageLandingLayout = ({ navigationHome, children }) => {
           anchor='right'
           drawerPaper={classes.drawerPaper}
           data={navigationHome}
+          hideExpandIcon={true}
         />
       </Hidden>
       <Content className={classes.page_layout}>

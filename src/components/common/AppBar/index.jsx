@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, IconButton, Hidden, Grid } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { useStyles } from './app_bar.styles';
 import ListItems from '../Listitems';
-
-const CustomAppBar = ({ data, position, ...props }) => {
+import Controls from '../../controls/Controls';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogoutAsync } from '../../../actions/auth';
+import { useHistory } from 'react-router-dom';
+const CustomAppBar = ({
+  data,
+  position,
+  anchorEl,
+  isPrivateRoute,
+  ...props
+}) => {
   const classes = useStyles({ position });
 
   const [openIndex, setOpenIndex] = useState(-1);
@@ -14,17 +23,38 @@ const CustomAppBar = ({ data, position, ...props }) => {
   };
 
   let renderData = data?.map((item, index) => {
+    const { name, url, subRoutes } = item;
     console.log(item);
     return (
       <ListItems
         key={index}
-        item={{ name: item.name, url: item.url, subRoutes: item.subRoutes }}
+        item={{ name, url, subRoutes }}
         open={openIndex === index}
         onItemClick={() => handleItemClick(index)}
         setOpen={(value) => setOpenIndex(value ? index : -1)}
+        anchorEl={anchorEl}
+        hideIcon={true}
+        hideExpandIcon={true}
+        {...classes}
       />
     );
   });
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { auth } = useSelector((state) => state);
+  const { logout } = auth;
+
+  useEffect(() => {
+    if (logout) {
+      console.log('Sesión cerrada exitosamente');
+    }
+  }, [logout]);
+
+  const handlerLogOut = () => {
+    dispatch(authLogoutAsync());
+    history.push('/presentation');
+  };
 
   return (
     <AppBar
@@ -46,6 +76,15 @@ const CustomAppBar = ({ data, position, ...props }) => {
         <Hidden smDown>
           <Grid className={classes.horizontalList}>{renderData}</Grid>
         </Hidden>
+        {isPrivateRoute && (
+          <Controls.Button
+            text='Cerrar Sesión'
+            variant='outlined'
+            color='orange'
+            hover='#bea024'
+            onClick={handlerLogOut}
+          />
+        )}
       </Toolbar>
     </AppBar>
   );

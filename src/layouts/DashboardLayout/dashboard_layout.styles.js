@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { primaryColor, secondaryColor } from '../../themesdsd/constants/colors';
+import { secondaryColor } from '../../themesdsd/constants/colors';
 const drawerWidth = 270;
-// Estilos para DashboardLayout
+
 export const useStylesDashboardLayout = makeStyles((theme) => ({
   root: {
     display: 'flex',

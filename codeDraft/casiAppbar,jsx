@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Hidden,
+  Grid,
+  Box,
+  Collapse,
+} from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
+import { useStyles } from './app_bar.styles';
+import ListItems from '../Listitems';
+import { Content } from '../Content';
+
+const CustomAppBar = ({ data, position, ...props }) => {
+  const classes = useStyles({ position });
+
+  const [openIndex, setOpenIndex] = useState(-1);
+  const [openChildIndex, setOpenChildIndex] = useState(-1);
+
+  const handleItemClick = (index) => {
+    if (index === openIndex) {
+      setOpenIndex(-1);
+      setOpenChildIndex(-1);
+    } else {
+      setOpenIndex(index);
+      setOpenChildIndex(-1);
+    }
+  };
+
+  const handleChildItemClick = (index) => {
+    setOpenChildIndex(-1);
+  };
+
+  const handleCollapseClose = () => {
+    setOpenIndex(-1);
+    setOpenChildIndex(-1);
+  };
+
+  const renderData = data?.map((item, index) => {
+    const { name, url, subRoutes } = item;
+    console.log(item);
+    return (
+      <ListItems
+        key={index}
+        item={{ name, url }}
+        open={openIndex === index}
+        onItemClick={() => handleItemClick(index)}
+        setOpen={(value) => setOpenIndex(value ? index : -1)}
+        expanded={classes.expanded}
+        selected={classes.selected}
+        ListItem={classes.ListItem}
+        listItemText={classes.listItemText}
+      >
+        {subRoutes &&
+          subRoutes.map((subItem, subIndex) => {
+            const { name: subName, url: subUrl } = subItem;
+            return (
+              <ListItems
+                key={subIndex}
+                item={{ name: subName, url: subUrl }}
+                open={openChildIndex === subIndex}
+                onItemClick={() => handleChildItemClick(subIndex)}
+                setOpen={() => setOpenChildIndex(subIndex)}
+                expanded={classes.expanded}
+                selected={classes.selected}
+                ListItem={classes.ListItem}
+                listItemText={classes.listItemText}
+              />
+            );
+          })}
+      </ListItems>
+    );
+  });
+
+  return (
+    <AppBar
+      position='fixed'
+      className={props.appBar}
+    >
+      <Toolbar>
+        <Hidden mdUp>
+          <IconButton
+            color='inherit'
+            aria-label='Open drawer'
+            edge='end'
+            onClick={() => props.handleDrawerToggle()}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
+        <Hidden smDown>
+          <Grid className={classes.horizontalList}>
+            <Content className={classes.root}>{renderData}</Content>
+          </Grid>
+        </Hidden>
+      </Toolbar>
+      <Collapse
+        in={openIndex !== -1}
+        onExited={handleCollapseClose}
+      >
+        {openIndex !== -1 && (
+          <Box className={classes.collapseContainer}>
+            {data[openIndex]?.subRoutes?.map((item, index) => {
+              const { name, url } = item;
+              return (
+                <ListItems
+                  key={index}
+                  item={{ name, url }}
+                  open={false}
+                  onItemClick={() => {}}
+                  setOpen={() => {}}
+                  expanded={classes.expanded}
+                  selected={classes.selected}
+                  ListItem={classes.ListItem}
+                  listItemText={classes.listItemText}
+                />
+              );
+            })}
+          </Box>
+        )}
+      </Collapse>
+    </AppBar>
+  );
+};
+
+export default CustomAppBar;
